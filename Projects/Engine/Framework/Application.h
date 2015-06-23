@@ -17,23 +17,14 @@ public:
 
 	bool Init();
 	void Shut();
-	void Run();
+	virtual void Run() = 0;
 
+	dword GetTick() const;
+	dword GetTickDiff(dword dwStart, dword dwEnd) const;
 protected:
 	//	Overload these member functions in your own class
 	virtual bool OnInit(){ return true; }
 	virtual void OnShut(){}
-
-	virtual void OnRun() = 0;
-	virtual bool ShouldQuit() = 0;
-	virtual bool MessagePump() = 0;
-
-	uint32 GetTick() const;
-	uint32 GetTickDiff(uint32 uStart, uint32 )
-
-private:
-	float m_fFPS;
-	int m_iMS;
 };
 
 }	//	namespace neko

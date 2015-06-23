@@ -38,14 +38,21 @@ void Application::Shut()
 	::timeEndPeriod(1);
 }
 
-void Application::Run()
+dword Application::GetTick() const
 {
-
+	return ::timeGetTime();
 }
 
-void Application::OnRun()
+dword Application::GetTickDiff(dword dwStart, dword dwEnd) const
 {
+	if(dwEnd > dwStart)
+	{
+		return dwEnd - dwStart;
+	}
 
+	__int64 iD = ((__int64)2<<32) - dwStart;
+	iD += dwEnd;
+	return static_cast<dword>(iD);
 }
 
 }	//	namespace neko
