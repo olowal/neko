@@ -12,9 +12,7 @@ namespace neko
 class Timer
 {
 public:
-	Timer()
-	{
-	}
+	Timer();
 	~Timer();
 
 private:
