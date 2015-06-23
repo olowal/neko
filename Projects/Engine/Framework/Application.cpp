@@ -29,20 +29,21 @@ bool Application::Init()
 
 	::timeBeginPeriod(1);
 
-	return true;
+	return OnInit();
 }
 
 void Application::Shut()
 {
-
+	OnShut();
+	::timeEndPeriod(1);
 }
 
-void Application::Start()
+void Application::Run()
 {
 
 }
 
-void Application::Run()
+void Application::OnRun()
 {
 
 }

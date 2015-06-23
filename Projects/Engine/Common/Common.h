@@ -41,6 +41,11 @@ typedef long long			sint64;
 typedef unsigned long long	uint64;
 typedef float				real;
 
+typedef unsigned __int8		byte;
+typedef unsigned __int16	word;
+typedef unsigned __int32	dword;
+typedef unsigned __int16	qword;
+
 template <class Interface>
 inline void SafeRelease(Interface** ppInterfaceToRelease)
 {
