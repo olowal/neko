@@ -1,5 +1,5 @@
 #include "Engine/Common/Common.h"
-#include "Engine/Graphics/Window.h"
+#include "D2DApp.h"
 
 int WINAPI WinMain(
 	HINSTANCE	hInstance,
@@ -10,24 +10,14 @@ int WINAPI WinMain(
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	neko::Window wnd;
-	
-	if(wnd.Init(hInstance, L"D2D", 
-		CW_USEDEFAULT, 
-		CW_USEDEFAULT, 
-		CW_USEDEFAULT, 
-		CW_USEDEFAULT))
+	D2DApp app;
+	if(!app.Init(hInstance))
 	{
-		while(!wnd.ShouldQuit())
-		{
-			if(wnd.MessagePump())
-			{
-				wnd.WaitMessage(1);
-			}
-		}
+		return (int)-1;
 	}
 
-	wnd.Close();
+	app.Run();
+	app.Shut();
 
 	return (int)0;
 }
