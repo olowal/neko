@@ -28,9 +28,6 @@
 
 #include "Engine/Debug/Debug.h"
 
-namespace neko
-{
-
 typedef unsigned char		uint8;
 typedef signed char			sint8;
 typedef signed short		sint16;
@@ -45,6 +42,9 @@ typedef unsigned __int8		byte;
 typedef unsigned __int16	word;
 typedef unsigned __int32	dword;
 typedef unsigned __int16	qword;
+
+namespace neko
+{
 
 template <class Interface>
 inline void SafeRelease(Interface** ppInterfaceToRelease)
