@@ -1,0 +1,54 @@
+/****************************************************************************
+//	Filename: Common.h
+//	Description: Common defines and includes not likely to change
+*****************************************************************************/
+
+#pragma once
+
+#define VC_EXTRALEAN
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+
+#include <Windows.h>
+
+#include <stdio.h>
+#include <stddef.h>
+#include <math.h>
+#include <limits.h>
+#include <direct.h>
+
+#include <d2d1_2.h>
+#include <d2d1_2helper.h>
+#include <dwrite.h>
+#include <wincodec.h>
+#include <mmsystem.h>
+
+#pragma comment(lib,"winmm.lib")
+#pragma comment(lib, "d2d1")
+
+#include "Engine/Debug/Debug.h"
+
+namespace neko
+{
+
+typedef unsigned char		uint8;
+typedef signed char			sint8;
+typedef signed short		sint16;
+typedef unsigned short		uint16;
+typedef signed int			sint32;
+typedef unsigned int		uint32;
+typedef long long			sint64;
+typedef unsigned long long	uint64;
+typedef float				real;
+
+template <class Interface>
+inline void SafeRelease(Interface** ppInterfaceToRelease)
+{
+	if(*ppInterfaceToRelease != NULL)
+	{
+		(*ppInterfaceToRelease)->Release();
+		(*ppInterfaceToRelease) = NULL;
+	}
+}
+
+}	//	namespace neko
