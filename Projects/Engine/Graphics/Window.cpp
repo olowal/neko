@@ -110,27 +110,11 @@ bool Window::MessagePump()
 	}
 
 	MSG msg;
-	bool bDone = false;
 	
-	while(!bDone && !m_bQuit)
+	while(GetMessageW(&msg, NULL, 0, 0))
 	{
-		if(::PeekMessageW(&msg, m_hWnd, 0, 0, PM_REMOVE))
-		{
-			if(::GetMessageW(&msg, m_hWnd, 0, 0))
-			{
-				::TranslateMessage(&msg);
-				::DispatchMessageW(&msg);
-			}
-			else
-			{
-				bDone = true;
-				m_bQuit = true;
-			}
-		}
-		else
-		{
-			bDone = true;
-		}
+		::TranslateMessage(&msg);
+		::DispatchMessageW(&msg);
 	}
 
 	return !m_bQuit;
