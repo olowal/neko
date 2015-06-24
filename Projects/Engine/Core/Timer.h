@@ -1,6 +1,6 @@
 /****************************************************************************
-//	Filename: Application.h
-//	Description: Base of an application
+//	Filename: Timer.h
+//	Description: Basic timer class
 *****************************************************************************/
 
 #pragma once
@@ -15,8 +15,11 @@ public:
 	Timer();
 	~Timer();
 
-private:
+	void Reset();
+	uint32 GetElapsed();
 
+private:
+	dword m_uStart;
 };
 
 }	//	namespace neko
