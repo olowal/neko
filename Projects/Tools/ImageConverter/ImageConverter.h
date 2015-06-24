@@ -14,6 +14,8 @@ class ImageConverter
 public:
 	ImageConverter();
 	~ImageConverter();
+
+	void Convert();
 };
 
 }	//	namespace neko
