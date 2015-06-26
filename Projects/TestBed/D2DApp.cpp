@@ -68,6 +68,7 @@ void D2DApp::Run()
 void D2DApp::DoFrame()
 {
 	m_uFrameIndex++;
+	m_wnd.Refresh();
 }
 
 void D2DApp::OnShut()
