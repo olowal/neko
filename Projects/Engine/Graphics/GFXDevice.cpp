@@ -80,7 +80,7 @@ void GFXDevice::OnRender()
 	ASSERT(m_pRenderTarget != NULL);
 
 	m_pRenderTarget->BeginDraw();
-	m_pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	
 	m_pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Red));
 
 	D2D1_SIZE_F size = m_pRenderTarget->GetSize();
@@ -122,8 +122,21 @@ void GFXDevice::OnRender()
 		size.height * 0.5f + 100.0f
 		);
 
-	m_pRenderTarget->FillRectangle(&rect1, m_pLightSlateGreyBrush);
-	m_pRenderTarget->DrawRectangle(&rect2, m_pCornFlowerBlueBrush);
+	m_pRenderTarget->FillRectangle(rect1, m_pLightSlateGreyBrush);
+	
+	const float fSpeed = 1.0f;
+	static float fX = 10.0f;
+	static float fY = 50.0f;
+
+	if(::GetAsyncKeyState('W')) fY -= fSpeed;
+	if(::GetAsyncKeyState('S')) fY += fSpeed;
+	if(::GetAsyncKeyState('A')) fX -= fSpeed;
+	if(::GetAsyncKeyState('D')) fX += fSpeed;
+
+	m_pRenderTarget->SetTransform(D2D1::Matrix3x2F::Translation(fX, fY));
+	m_pRenderTarget->DrawRectangle(rect2, m_pCornFlowerBlueBrush);
+
+	m_pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
 	m_pRenderTarget->EndDraw();
 }
