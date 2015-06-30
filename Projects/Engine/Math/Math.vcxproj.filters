@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vec2.h" />
+    <ClInclude Include="Mat3x2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp" />
