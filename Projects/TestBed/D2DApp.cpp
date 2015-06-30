@@ -68,7 +68,7 @@ void D2DApp::Run()
 void D2DApp::DoFrame()
 {
 	m_uFrameIndex++;
-	m_wnd.Refresh();
+	m_wnd.Refresh();	//	Will force the window to redraw its contents
 }
 
 void D2DApp::OnShut()
