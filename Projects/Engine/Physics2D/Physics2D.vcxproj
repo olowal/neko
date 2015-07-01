@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CollisionShape.h" />
+    <ClInclude Include="CollisionSphere2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionShape.cpp" />
