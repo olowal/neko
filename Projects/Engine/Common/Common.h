@@ -43,6 +43,9 @@ typedef unsigned __int16	word;
 typedef unsigned __int32	dword;
 typedef unsigned __int16	qword;
 
+#define PRIVATE_COPY(NameOfClass)	NameOfClass(NameOfClass& xC) { ASSERT(false); } \
+									NameOfClass& operator=(NameOfClass& xC)	{ ASSERT(false); return *this; }
+
 namespace neko
 {
 
