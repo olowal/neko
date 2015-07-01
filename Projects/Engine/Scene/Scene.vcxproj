@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5C51A00D-EBA4-480E-AC7C-0F44BC21C35F}</ProjectGuid>
-    <RootNamespace>Graphics</RootNamespace>
+    <ProjectGuid>{9B402425-C372-444D-9030-AC6E0273EA39}</ProjectGuid>
+    <RootNamespace>Scene</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -67,26 +67,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
-    <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
     <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
     <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
-    <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
     <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
     <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
-    <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
     <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
     <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
-    <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
     <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
     <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -146,22 +146,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GFXDevice.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="TransformNode.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GFXDevice.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="TransformNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.vcxproj">
       <Project>{611aea51-4fd7-43ef-92b3-0c5d8c799b27}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{523df5b2-cd93-40d5-8d72-9a4c22b17d81}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Debug\Debug.vcxproj">
       <Project>{9c885edb-dd2f-4f17-aebc-3872d03822e6}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Graphics\Graphics.vcxproj">
+      <Project>{5c51a00d-eba4-480e-ac7c-0f44bc21c35f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Math\Math.vcxproj">
+      <Project>{316de0cb-002a-40bc-bd4b-08d1c59693e1}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Memory\Memory.vcxproj">
       <Project>{ab60354c-7af9-4904-86b2-4b01de57e6a6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Physics2D\Physics2D.vcxproj">
+      <Project>{58cc8f46-a469-4841-88c2-b99fe597b112}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -171,6 +171,9 @@
     <ProjectReference Include="..\Engine\Memory\Memory.vcxproj">
       <Project>{ab60354c-7af9-4904-86b2-4b01de57e6a6}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Engine\Scene\Scene.vcxproj">
+      <Project>{9b402425-c372-444d-9030-ac6e0273ea39}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D2DApp.h" />
