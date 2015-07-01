@@ -17,6 +17,8 @@ public:
 	SceneManager();
 	~SceneManager();
 
+	TransformNode* CreateSceneNode(const TransformNode* pParent);
+
 protected:
 	class SceneNode : public TransformNode
 	{
@@ -27,6 +29,8 @@ protected:
 		enum { SCENE_NODE_ID = 0x56549549 };
 		virtual uint32 GetId() const { return SCENE_NODE_ID; }
 
+		void Init();
+		void PreCullUpdate(SceneNode* pParent = NULL, bool bParentDirty = false);
 		void AddChild(SceneNode* pChild);
 
 	private:
