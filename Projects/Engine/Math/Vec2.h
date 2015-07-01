@@ -9,11 +9,12 @@
 namespace neko
 {
 
+class Mat3x2;
 class Vec2
 {
 public:
 	float m_fX, m_fY;
-
+	
 	Vec2()
 	{
 		m_fX = m_fY = 0.0f;
@@ -52,6 +53,8 @@ public:
 	Vec2& operator*=(float p_fF) { m_fX *= p_fF; m_fY *= p_fF; return *this; }
 	Vec2 operator/(float p_fF) const { return Vec2(m_fX / p_fF, m_fY / p_fF); }
 	Vec2& operator/=(float p_fF) { m_fX /= p_fF; m_fY /= p_fF; return *this; }
+
+	Vec2 operator*(const Mat3x2& mM) const;
 
 	float operator*(const Vec2& p_kxrA) const { return m_fX*p_kxrA.m_fX + m_fY*p_kxrA.m_fY; }
 
