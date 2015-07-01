@@ -146,6 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DArray.h" />
+    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>

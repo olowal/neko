@@ -5,5 +5,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="DArray.h" />
+    <ClInclude Include="ObjectPool.h" />
   </ItemGroup>
 </Project>
