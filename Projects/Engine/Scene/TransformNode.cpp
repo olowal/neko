@@ -9,6 +9,7 @@ TransformNode::TransformNode()
 {
 	m_mWorldTransform.SetIdentity();
 	m_mLocalTransform.SetIdentity();
+	m_bLocalMatDirty = false;
 }
 
 TransformNode::~TransformNode()
