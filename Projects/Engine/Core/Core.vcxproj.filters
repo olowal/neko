@@ -5,7 +5,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="DArray.h" />
-    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="DArray.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{2d68e2d4-13cf-443a-9f0b-05c1cbc82f06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
