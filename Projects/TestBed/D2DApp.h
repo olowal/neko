@@ -7,6 +7,7 @@
 #include "Engine/Common/Common.h"
 #include "Engine/Graphics/Window.h"
 #include "Engine/Framework/Application.h"
+#include "Engine/Scene/Camera.h"
 
 class D2DApp : public neko::Application
 {
@@ -22,6 +23,7 @@ protected:
 	virtual bool OnInit(){return true;}
 	virtual void OnShut();
 private:
+	neko::Camera m_camera;
 	neko::Window m_wnd;
 	float m_fFPS;
 	int m_iMs;

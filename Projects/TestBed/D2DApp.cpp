@@ -3,6 +3,8 @@
 #include "D2DApp.h"
 #include "Engine/Math/Utils.h"
 
+using namespace neko;
+
 D2DApp::D2DApp()
 {
 	m_fFPS = 0.0f;
@@ -68,7 +70,32 @@ void D2DApp::Run()
 void D2DApp::DoFrame()
 {
 	m_uFrameIndex++;
-	m_wnd.Refresh();	//	Will force the window to redraw its contents
+	//m_wnd.Refresh();	//	Will force the window to redraw its contents
+	
+	float fX = 0.0f;
+	float fY = 0.0f;
+
+	float fSpeed = 1.0f;
+
+	if(::GetAsyncKeyState('W')) { fY = fSpeed; }
+	if(::GetAsyncKeyState('S')) { fY = -fSpeed; }
+	if(::GetAsyncKeyState('A')) { fX = -fSpeed; }
+	if(::GetAsyncKeyState('D')) { fX = fSpeed; }
+
+	m_camera.Translate(Vec2(fX, fY));
+	
+	neko::GFXDevice& device = m_wnd.GetDevice();
+
+	device.SetModelMatrix(m_camera.GetModelMatrix());
+
+	POINT mousePos;
+	GetCursorPos(&mousePos);
+	ScreenToClient(m_wnd.GetWindowHandle(), &mousePos);
+
+	device.BeginDraw();
+	device.Clear(Color::SeaGreen);
+	device.DrawRect(Vec2((float)mousePos.x, (float)mousePos.y), Vec2(100.0f, 150.0f), Color::Beige);
+	device.EndDraw();
 }
 
 void D2DApp::OnShut()
