@@ -3,9 +3,12 @@
   <ItemGroup>
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="TransformNode.h" />
+    <ClInclude Include="RenderNode.h" />
+    <ClInclude Include="Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TransformNode.cpp" />
+    <ClCompile Include="RenderNode.cpp" />
   </ItemGroup>
 </Project>
