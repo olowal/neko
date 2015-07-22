@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClInclude Include="Window.h" />
     <ClInclude Include="GFXDevice.h" />
+    <ClInclude Include="Color.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp" />
