@@ -33,6 +33,7 @@ public:
 	void Remove(const Node* pNode);
 	void RemoveFirst();
 	void RemoveLast();
+	void Sort();
 
 private:
 	PRIVATE_COPY(LinkedList);
@@ -202,6 +203,35 @@ void LinkedList<ElemType>::RemoveLast()
 	{
 		RemoveFirst();
 	}
+}
+
+template <class ElemType>
+void LinkedList<ElemType>::Sort()
+{
+	ElemType* pSwap = NULL;
+	Node* pNode = NULL;
+	Node* pNext = NULL;
+
+	bool bSwapped = false;
+	do
+	{
+		bSwapped = false;
+		pNode = m_pFirst;
+
+		while(pNode && pNode->pNext)
+		{
+			pNext = pNode->pNext;
+
+			if(*pNext->pData < *pNode->pData)
+			{
+				pSwap = pNode->pData;
+				pNode->pData = pNext->pData;
+				pNext->pData = pSwap;
+				bSwapped = true;
+			}
+			pNode = pNext;
+		}
+	} while(bSwapped)
 }
 
 }	//	namespace neko
