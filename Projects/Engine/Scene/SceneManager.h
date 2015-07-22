@@ -4,8 +4,8 @@
 *****************************************************************************/
 
 #pragma once
-
 #include "Engine/Common/Common.h"
+#include "Engine/Core/LinkedList.h"
 #include "Engine/Scene/TransformNode.h"
 
 namespace neko
@@ -18,6 +18,7 @@ public:
 	~SceneManager();
 
 	TransformNode* CreateSceneNode(const TransformNode* pParent);
+	void DeleteSceneNode(const TransformNode* pNode);
 
 protected:
 	class SceneNode : public TransformNode
@@ -39,6 +40,9 @@ protected:
 		SceneNode* m_pChild;
 		SceneNode* m_pSibling;
 	};
+
+	ObjectPool<SceneNode> m_sceneNodes;
+	LinkedList<SceneNode> m_parentSceneNodes;
 };
 
 }	//	namespace neko

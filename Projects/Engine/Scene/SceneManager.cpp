@@ -5,7 +5,8 @@
 namespace neko
 {
 
-SceneManager::SceneManager(){}
+SceneManager::SceneManager() : 
+	m_sceneNodes(128){}
 SceneManager::~SceneManager(){}
 
 SceneManager::SceneNode::SceneNode():
@@ -67,6 +68,33 @@ void SceneManager::SceneNode::AddSibling(SceneNode* pSibling)
 	{
 		m_pSibling->AddSibling(pSibling);
 	}
+}
+
+TransformNode* SceneManager::CreateSceneNode(const TransformNode* pParent)
+{
+	SceneNode* pSceneNode = m_sceneNodes.Alloc();
+	pSceneNode->Init();
+
+	if(pParent)
+	{
+		SceneNode* pParentSceneNode = (SceneNode*)pParent;
+		ASSERT(pParentSceneNode->GetId() == SceneNode::SCENE_NODE_ID);
+		pParentSceneNode->AddChild(pSceneNode);
+	}
+	else
+	{
+		m_parentSceneNodes.AddToLast(pSceneNode);
+	}
+
+	return (TransformNode*)pSceneNode;
+}
+
+void SceneManager::DeleteSceneNode(const TransformNode* pNode)
+{
+	SceneNode* pSceneNode = (SceneNode*)pNode;
+	ASSERT(pSceneNode->GetId() == SceneNode::SCENE_NODE_ID);
+	m_sceneNodes.Free(pSceneNode);
+	m_parentSceneNodes.Remove(pSceneNode);
 }
 
 }	//	namespace neko
