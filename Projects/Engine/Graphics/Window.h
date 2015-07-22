@@ -4,7 +4,6 @@
 *****************************************************************************/
 
 #pragma once
-
 #include "Engine/Common/Common.h"
 #include "GFXDevice.h"
 
@@ -26,6 +25,7 @@ public:
 	void Refresh();
 
 	GFXDevice& GetDevice() { return m_device; }
+	HWND GetWindowHandle() const { return m_hWnd; }
 	HINSTANCE GetHInstance() const { return m_hInstance; }
 
 	bool ShouldQuit() const { return m_bQuit; }
