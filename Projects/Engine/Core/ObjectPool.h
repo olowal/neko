@@ -7,6 +7,8 @@
 #include "Engine/Common/Common.h"
 #include "Engine/Core/DArray.h"
 
+#include <new>
+
 namespace neko
 {
 
