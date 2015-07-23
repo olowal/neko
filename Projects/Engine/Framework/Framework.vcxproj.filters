@@ -5,5 +5,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="RenderComponent.h" />
   </ItemGroup>
 </Project>
