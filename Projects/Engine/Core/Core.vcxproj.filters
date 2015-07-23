@@ -14,6 +14,7 @@
     <ClInclude Include="LinkedList.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="String.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">

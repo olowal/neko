@@ -149,6 +149,7 @@
     <ClInclude Include="DArray.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="String.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
