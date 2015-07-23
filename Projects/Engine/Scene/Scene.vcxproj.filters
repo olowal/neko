@@ -5,10 +5,12 @@
     <ClInclude Include="TransformNode.h" />
     <ClInclude Include="RenderNode.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="SceneNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TransformNode.cpp" />
     <ClCompile Include="RenderNode.cpp" />
+    <ClCompile Include="SceneNode.cpp" />
   </ItemGroup>
 </Project>

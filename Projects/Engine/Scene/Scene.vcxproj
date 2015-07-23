@@ -149,11 +149,13 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="RenderNode.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneNode.h" />
     <ClInclude Include="TransformNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderNode.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneNode.cpp" />
     <ClCompile Include="TransformNode.cpp" />
   </ItemGroup>
   <ItemGroup>

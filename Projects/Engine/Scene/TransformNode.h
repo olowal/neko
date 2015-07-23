@@ -17,8 +17,6 @@ public:
 	TransformNode();
 	virtual ~TransformNode();
 
-	virtual uint32 GetId() const = 0;
-
 	void SetMatrix(const Mat3x2& mat);
 
 	const Mat3x2& GetMatrix() const { return m_mWorldTransform; }
