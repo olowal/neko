@@ -28,6 +28,7 @@ public:
 		}
 	}
 
+	void Set(const IString sStr){ Set(sStr.m_pzString); }
 	void Set(const StrType* pzStr);
 
 	uint32 Length() const { return m_uLength; }
