@@ -4,7 +4,8 @@
 namespace neko
 {
 
-TextureMgr::TextureMgr()
+TextureMgr::TextureMgr() :
+m_textures(MAX_TEXTURES)
 {
 	m_pIWICFactory = NULL;
 }
@@ -25,6 +26,20 @@ bool TextureMgr::Init()
 	);
 
 	return SUCCEEDED(hr);
+}
+
+Texture* TextureMgr::Load(const wchar_t* szFilename, const GFXDevice* pDevice)
+{
+	ASSERT(m_pIWICFactory != NULL);
+	IWICBitmapDecoder* pDecorder = NULL;
+	HRESULT hr = m_pIWICFactory->CreateDecoderFromFilename(szFilename, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &pDecorder);
+	ASSERT(SUCCEEDED(hr));
+
+}
+
+void TextureMgr::Unload(Texture* pTexture)
+{
+
 }
 
 }	//	namespace neko
