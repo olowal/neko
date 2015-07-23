@@ -37,6 +37,8 @@ public:
 
 	void SetModelMatrix(const Mat3x2& mModel) { m_mModel = mModel; }
 
+	ID2D1Bitmap* CreateBitmapFromWicBitmap(IWICFormatConverter* pConvertedSourceBitmap) const;
+
 private:
 	void DiscardDeviceResources();
 

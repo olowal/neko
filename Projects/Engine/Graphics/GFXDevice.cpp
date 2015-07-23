@@ -209,4 +209,18 @@ void GFXDevice::DrawLine(const Vec2& vFrom, const Vec2& vTo, const Color& color)
 	DrawLine(vFrom.m_fX, vFrom.m_fY, vTo.m_fX, vTo.m_fY, color);
 }
 
+
+ID2D1Bitmap* GFXDevice::CreateBitmapFromWicBitmap(IWICFormatConverter* pConvertedSourceBitmap) const
+{
+	ASSERT(m_pRenderTarget != NULL);
+	ID2D1Bitmap* pBitmap = NULL;
+	HRESULT hr = m_pRenderTarget->CreateBitmapFromWicBitmap(pConvertedSourceBitmap, NULL, &pBitmap);
+	if(!SUCCEEDED(hr))
+	{
+		return NULL;
+	}
+
+	return pBitmap;
+}
+
 }	//	namespace neko
