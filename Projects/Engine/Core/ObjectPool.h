@@ -42,8 +42,8 @@ private:
 		pHeader -= sizeof(Entry*) * 2;
 		return (Entry*)pHeader;
 	}
-
-	DArray<Entry> m_pool;
+	// TODO: Remove DArray and exchange it with a similar class based on raw byte (uint8) memory so we dont call double constructors etc.
+	DArray<Entry, false> m_pool;
 
 	Entry* m_pFirst;
 	Entry* m_pFirstFree;
@@ -127,7 +127,7 @@ ElemType* ObjectPool<ElemType>::Alloc()
 	}
 
 	m_uSize++;
-
+	new(&pAlloc->m_data) ElemType();
 	return &pAlloc->m_data;
 }
 
@@ -135,6 +135,7 @@ template <class ElemType>
 void ObjectPool<ElemType>::Free(ElemType* pData)
 {
 	Entry* pEntry = GetHeaderFromData(pData);
+	pEntry->m_data.~ElemType();
 	Entry* pPrev = pEntry->m_pPrev;
 	Entry* pNext = pEntry->m_pNext;
 	m_uSize--;
