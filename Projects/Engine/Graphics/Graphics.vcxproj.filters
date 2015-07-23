@@ -4,9 +4,12 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="GFXDevice.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="GFXDevice.cpp" />
+    <ClCompile Include="TextureMgr.cpp" />
   </ItemGroup>
 </Project>
