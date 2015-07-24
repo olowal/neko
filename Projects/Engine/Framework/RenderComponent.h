@@ -10,6 +10,8 @@
 namespace neko
 {
 
+class Texture;
+class GFXDevice;
 class RenderComponent : public Component, public TransformNode
 {
 public:
@@ -23,8 +25,13 @@ public:
 		Layer_Overlay,
 		Layer_Count
 	};
+
+	void Draw(GFXDevice* pDevice);
 	void SetLayer(Layer eLayer) { m_eLayer = eLayer; }
 	Layer GetLayer() const { return m_eLayer; }
+
+private:
+	Texture* m_pTexture;
 	Layer m_eLayer;
 };
 
