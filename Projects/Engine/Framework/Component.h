@@ -8,6 +8,7 @@
 namespace neko
 {
 
+class SceneNode;
 class Component
 {
 public:
@@ -16,6 +17,12 @@ public:
 
 	virtual void OnEnable(){}
 	virtual void OnDisable(){}
+
+	SceneNode* GetOwner() { return m_pOwner; }
+	void SetOwner(SceneNode* pOwner) { m_pOwner = pOwner; }
+
+protected:
+	SceneNode* m_pOwner;
 };
 
 }	//	namespace neko
