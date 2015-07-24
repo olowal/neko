@@ -39,7 +39,7 @@ Texture* TextureMgr::Load(const wchar_t* szFilename, const GFXDevice* pDevice)
 
 void TextureMgr::Unload(Texture* pTexture)
 {
-
+	m_textures.Free(pTexture);
 }
 
 }	//	namespace neko
