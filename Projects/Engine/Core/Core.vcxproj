@@ -150,6 +150,7 @@
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="StringUtils.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@
       <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="String.h" />
+    <ClInclude Include="StringUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
