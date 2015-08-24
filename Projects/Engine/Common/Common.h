@@ -50,12 +50,12 @@ namespace neko
 {
 
 template <class Interface>
-inline void SafeRelease(Interface** ppInterfaceToRelease)
+inline void SafeRelease(Interface *&p)
 {
-	if(*ppInterfaceToRelease != NULL)
+	if(p != NULL)
 	{
-		(*ppInterfaceToRelease)->Release();
-		(*ppInterfaceToRelease) = NULL;
+		p->Release();
+		p = NULL;
 	}
 }
 
