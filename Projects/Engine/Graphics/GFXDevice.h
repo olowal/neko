@@ -12,6 +12,7 @@
 namespace neko
 {
 
+class Texture;
 class GFXDevice
 {
 public:
@@ -34,6 +35,7 @@ public:
 	void DrawRect(const Vec2& vPos, const Vec2& vSize, const Color& color);
 	void DrawLine(float fXFrom, float fYFrom, float fXTo, float fYTo, const Color& color);
 	void DrawLine(const Vec2& vFrom, const Vec2& vTo, const Color& color);
+	void DrawBitmap(const Vec2& vPos, Texture* pTexture);
 
 	void SetModelMatrix(const Mat3x2& mModel) { m_mModel = mModel; }
 
