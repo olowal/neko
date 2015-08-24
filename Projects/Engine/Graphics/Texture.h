@@ -15,12 +15,14 @@ public:
 	Texture(){}
 	~Texture(){}
 
+	void Init(ID2D1Bitmap* pBitmap) { m_pBitmap = pBitmap; }
+
 	void SetName(const String& name) { m_name.Set(name); }
-	const String& GetName() const { return m_name; }
+	const WString& GetName() const { return m_name; }
 
 	ID2D1Bitmap* GetBitmap() const { return m_pBitmap; }
 private:
-	String m_name;
+	WString m_name;
 	ID2D1Bitmap* m_pBitmap;
 };
 
