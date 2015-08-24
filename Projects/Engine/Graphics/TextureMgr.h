@@ -2,14 +2,15 @@
 //	Filename: TextureMgr.h
 //	Description: Texture manager, contains lots of different textures.
 *****************************************************************************/
+#pragma once
 #include "Engine/Common/Common.h"
-#include "Engine/Core/String.h"
 #include "Engine/Core/ObjectPool.h"
+#include "Engine/Graphics/Texture.h"
+#include "Engine/Core/ISingleton.h"
 
 namespace neko
 {
 
-class Texture;
 class GFXDevice;
 class TextureMgr
 {
@@ -25,7 +26,7 @@ public:
 	enum { MAX_TEXTURES = 64 };
 
 private:
-	bool DoesTextureExist(const String& sName);
+	Texture* DoesTextureExist(const WString& sName);
 
 	ObjectPool<Texture> m_textures;
 	IWICImagingFactory* m_pIWICFactory;
