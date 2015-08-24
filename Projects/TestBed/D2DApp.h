@@ -8,6 +8,7 @@
 #include "Engine/Graphics/Window.h"
 #include "Engine/Framework/Application.h"
 #include "Engine/Scene/Camera.h"
+#include "Engine/Graphics/TextureMgr.h"
 
 class D2DApp : public neko::Application
 {
@@ -23,6 +24,7 @@ protected:
 	virtual bool OnInit(){return true;}
 	virtual void OnShut();
 private:
+	neko::TextureMgr m_texMgr;
 	neko::Camera m_camera;
 	neko::Window m_wnd;
 	float m_fFPS;

@@ -30,6 +30,11 @@ bool D2DApp::Init(HINSTANCE hInstance)
 		return false;
 	}
 
+	if(!m_texMgr.Init())
+	{
+		return false;
+	}
+
 	return true;
 }
 
