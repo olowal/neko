@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClCompile Include="ImageConverter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="IMG_tga.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageConverter.h" />

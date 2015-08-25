@@ -1,37 +1,33 @@
 //	ImageConverter.cpp
 
 #include "ImageConverter.h"
-#define VC_EXTRALEAN
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-
-#include <Windows.h>
-#include <direct.h>
 
 namespace neko
 {
+
+static const char* s_sFolder = "../../../Data/";
+static const char* s_sTextures = "Textures/";
 
 ImageConverter::ImageConverter(){}
 ImageConverter::~ImageConverter(){}
 
 void ImageConverter::Convert()
 {
-	{
-		//	Set the application path to the executable path
-		wchar_t sT[MAX_PATH];
-		::GetModuleFileNameW(NULL, sT, MAX_PATH);
-		int iP = lstrlenW(sT);
-		
-		while(iP > 0
-			&& (sT[iP - 1] != L'/')
-			&& (sT[iP] != L'\\'))
-		{
-			iP--;
-		}
+	FILE* file = NULL;
+	fopen_s(&file, "test.bin", "wb");
 
-		sT[iP] = L'\0';
-		_wchdir(sT);
-	}
+	const char* sFile = "Pikachu_Sprite.tga";
+	const size_t uMaxPath = 255;
+	char sPath[uMaxPath];
+	SDL_strlcpy(sPath, s_sFolder, uMaxPath);
+	SDL_strlcat(sPath, s_sTextures, uMaxPath);
+	SDL_strlcat(sPath, sFile, uMaxPath);
+	SDL_Surface* pSurface = TGAToBin(sPath, file);
+
+	fclose(file);
+
+	int p = 0;
+	p++;
 }
 
 }	//	namespace neko

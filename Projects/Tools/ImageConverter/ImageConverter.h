@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "Engine/Common/Common.h"
 
 namespace neko
 {
@@ -16,6 +17,9 @@ public:
 	~ImageConverter();
 
 	void Convert();
+private:
+	SDL_Surface* TGAToBin(const char* sFilename, FILE* pFile);
+	SDL_Texture* LoadTGA(SDL_Renderer* pRndr, const char* sFile);
 };
 
 }	//	namespace neko

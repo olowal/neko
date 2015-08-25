@@ -7,8 +7,8 @@ static const wchar_t* s_sTextureFolderName = L"Data/Textures/";
 namespace neko
 {
 
-TextureMgr::TextureMgr() :
-m_textures(MAX_TEXTURES)
+TextureMgr::TextureMgr() //:
+//m_textures(MAX_TEXTURES)
 {
 	m_pIWICFactory = NULL;
 }
@@ -74,7 +74,7 @@ Texture* TextureMgr::Load(const wchar_t* szFilename, const GFXDevice* pDevice)
 	ID2D1Bitmap* pBitmap = pDevice->CreateBitmapFromWicBitmap(pFormatConverter);
 	ASSERT(pBitmap != NULL);
 
-	pTexture = m_textures.Alloc();
+	//pTexture = m_textures.Alloc();
 	pTexture->Init(pBitmap);
 
 	return NULL;
@@ -82,12 +82,12 @@ Texture* TextureMgr::Load(const wchar_t* szFilename, const GFXDevice* pDevice)
 
 void TextureMgr::Unload(Texture* pTexture)
 {
-	m_textures.Free(pTexture);
+	//m_textures.Free(pTexture);
 }
 
 Texture* TextureMgr::DoesTextureExist(const WString& sName)
 {
-	ObjectPool<Texture>::Iterator it = m_textures.Begin();
+	/*ObjectPool<Texture>::Iterator it = m_textures.Begin();
 	for(; !it.IsEnd(); ++it)
 	{
 		Texture* pTexture = (*it);
@@ -96,7 +96,7 @@ Texture* TextureMgr::DoesTextureExist(const WString& sName)
 		{
 			return pTexture;
 		}
-	}
+	}*/
 
 	return NULL;
 }

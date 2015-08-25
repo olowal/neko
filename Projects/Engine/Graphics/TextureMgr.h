@@ -25,9 +25,11 @@ public:
 	enum { MAX_TEXTURES = 64 };
 
 private:
+	static 
+
 	Texture* DoesTextureExist(const WString& sName);
 
-	ObjectPool<Texture> m_textures;
+	//ObjectPool<Texture> m_textures;
 	IWICImagingFactory* m_pIWICFactory;
 };
 
