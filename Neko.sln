@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{027D6BF8-71C4-4B3C-AA16-A19CE1352ABA}"
 EndProject
@@ -39,6 +39,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scene", "Projects\Engine\Scene\Scene.vcxproj", "{9B402425-C372-444D-9030-AC6E0273EA39}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics2D", "Projects\Engine\Physics2D\Physics2D.vcxproj", "{58CC8F46-A469-4841-88C2-B99FE597B112}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{0CC63D22-5484-4347-91CD-4C8B59184AE5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua", "Projects\ThirdParty\Lua\Lua.vcxproj", "{99B90A98-5645-4388-814D-986D512FAA70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,6 +138,14 @@ Global
 		{58CC8F46-A469-4841-88C2-B99FE597B112}.Release|Win32.Build.0 = Release|Win32
 		{58CC8F46-A469-4841-88C2-B99FE597B112}.Release|x64.ActiveCfg = Release|x64
 		{58CC8F46-A469-4841-88C2-B99FE597B112}.Release|x64.Build.0 = Release|x64
+		{99B90A98-5645-4388-814D-986D512FAA70}.Debug|Win32.ActiveCfg = Debug|Win32
+		{99B90A98-5645-4388-814D-986D512FAA70}.Debug|Win32.Build.0 = Debug|Win32
+		{99B90A98-5645-4388-814D-986D512FAA70}.Debug|x64.ActiveCfg = Debug|x64
+		{99B90A98-5645-4388-814D-986D512FAA70}.Debug|x64.Build.0 = Debug|x64
+		{99B90A98-5645-4388-814D-986D512FAA70}.Release|Win32.ActiveCfg = Release|Win32
+		{99B90A98-5645-4388-814D-986D512FAA70}.Release|Win32.Build.0 = Release|Win32
+		{99B90A98-5645-4388-814D-986D512FAA70}.Release|x64.ActiveCfg = Release|x64
+		{99B90A98-5645-4388-814D-986D512FAA70}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,5 +161,6 @@ Global
 		{6B2544AB-5550-420E-9F4E-396974F6A45B} = {1A8F101C-85ED-4594-AD48-2C8073061175}
 		{9B402425-C372-444D-9030-AC6E0273EA39} = {027D6BF8-71C4-4B3C-AA16-A19CE1352ABA}
 		{58CC8F46-A469-4841-88C2-B99FE597B112} = {027D6BF8-71C4-4B3C-AA16-A19CE1352ABA}
+		{99B90A98-5645-4388-814D-986D512FAA70} = {0CC63D22-5484-4347-91CD-4C8B59184AE5}
 	EndGlobalSection
 EndGlobal
