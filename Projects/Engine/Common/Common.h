@@ -10,6 +10,8 @@
 #define NOMINMAX
 
 #include <Windows.h>
+#include "SDL2/SDL.h"
+#undef main
 
 #include <stdio.h>
 #include <stddef.h>
@@ -25,6 +27,9 @@
 
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib, "d2d1")
+
+#pragma comment(lib, "SDL2.lib")
+#pragma comment(lib, "SDL2main.lib")
 
 #include "Engine/Debug/Debug.h"
 

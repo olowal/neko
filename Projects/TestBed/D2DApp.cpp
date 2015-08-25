@@ -19,7 +19,7 @@ bool D2DApp::Init(HINSTANCE hInstance)
 	{
 		return false;
 	}
-
+	SDL_GetTicks();
 	if(!m_wnd.Init(hInstance,
 		L"D2DApp",
 		CW_USEDEFAULT,
