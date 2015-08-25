@@ -6,7 +6,6 @@
 #include "Engine/Common/Common.h"
 #include "Engine/Core/ObjectPool.h"
 #include "Engine/Graphics/Texture.h"
-#include "Engine/Core/ISingleton.h"
 
 namespace neko
 {
