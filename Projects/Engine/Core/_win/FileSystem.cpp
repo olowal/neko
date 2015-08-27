@@ -4,7 +4,34 @@
 namespace neko
 {
 
-uint32 FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, char** ppsBuf, const uint32 uBufSize, const uint32 uStringSize)
+FileSystem::FileData::FileData(uint32 uSize, uint32 uMaxPath)
+{
+	m_uSize = uSize;
+	m_uMaxPath = uMaxPath;
+	m_ppFiles = new char*[uSize];
+
+	for(uint32 i = 0; i < uSize; i++)
+	{
+		m_ppFiles[i] = new char[uMaxPath];
+	}
+}
+
+FileSystem::FileData::~FileData()
+{
+	for(uint32 i = 0; i < m_uSize; i++)
+	{
+		delete [] m_ppFiles[i];
+	}
+
+	delete [] m_ppFiles;
+}
+
+void FileSystem::FileData::Add(const char* sFilename)
+{
+	strcpy_s(&m_ppFiles[m_uCount++][0], m_uMaxPath, sFilename);
+}
+
+uint32 FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, FileSystem::FileData& fileData)
 {
 	WIN32_FIND_DATA data;
 	ZeroMemory(&data, sizeof(WIN32_FIND_DATA));
@@ -21,20 +48,37 @@ uint32 FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, cha
 	{
 		strcpy_s(sFile, sPath);
 		strcat_s(sFile, data.cFileName);
-		char* pS = &ppsBuf[uCount++][0];
-		strcpy_s(pS, uStringSize, sFile);
+		fileData.Add(sFile);
 
-		while(FindNextFileA(hFind, &data) != 0 && uCount < uBufSize)
+		while(FindNextFileA(hFind, &data) != 0)
 		{
 			sFile[0] = '\0';
 			strcpy_s(sFile, sPath);
 			strcat_s(sFile, data.cFileName);
-			pS = &ppsBuf[uCount++][0];
-			strcpy_s(pS, uStringSize, sFile);
+			fileData.Add(sFile);
 		}
 	}
 
+	FindClose(hFind);
+
 	return uCount;
+}
+
+uint32 FileSystem::GetListOfFolders(const char* sPath, char** ppsBuf, const uint32 uBufSize, const uint32 uStringSize)
+{
+	WIN32_FIND_DATA data;
+	ZeroMemory(&data, sizeof(WIN32_FIND_DATA));
+	HANDLE hFind = FindFirstFileA(sPath, &data);
+
+	do
+	{
+		if(data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+		{
+			//	Add it here
+		}
+	} while(FindNextFileA(hFind, &data) != 0);
+
+	return 0;
 }
 
 uint64 FileSystem::GetFileSize(const char* sFilename)
