@@ -3,6 +3,9 @@
   <ItemGroup>
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="String.cpp" />
+    <ClCompile Include="_win\FileSystem.cpp">
+      <Filter>_win</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h" />
@@ -17,10 +20,17 @@
     </ClInclude>
     <ClInclude Include="String.h" />
     <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="FileSystem.h" />
+    <ClInclude Include="_win\FileSystem.h">
+      <Filter>_win</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
       <UniqueIdentifier>{2d68e2d4-13cf-443a-9f0b-05c1cbc82f06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_win">
+      <UniqueIdentifier>{1b7d4849-f833-498b-ae81-9c450ac40839}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
