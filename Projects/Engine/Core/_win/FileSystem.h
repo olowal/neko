@@ -44,8 +44,8 @@ public:
 		uint32 m_uMaxPath;
 	};
 
-	static uint32 GetListOfFiles(const char* sPath, const char* sExtension, FileSystem::FileData& fileData);
-	static uint32 GetListOfFolders(const char* sPath, char** ppsBuf, const uint32 uBufSize, const uint32 uStringSize);
+	static void GetListOfFiles(const char* sPath, const char* sExtension, FileSystem::FileData& fileData);
+	static void GetListOfFolders(const char* sPath, FileSystem::FileData& fileData);
 
 	static uint64 GetFileSize(const char* sFilename);
 	static uint64 GetFileSize(const wchar_t* sFilename);

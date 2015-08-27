@@ -31,7 +31,7 @@ void FileSystem::FileData::Add(const char* sFilename)
 	strcpy_s(&m_ppFiles[m_uCount++][0], m_uMaxPath, sFilename);
 }
 
-uint32 FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, FileSystem::FileData& fileData)
+void FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, FileSystem::FileData& fileData)
 {
 	WIN32_FIND_DATA data;
 	ZeroMemory(&data, sizeof(WIN32_FIND_DATA));
@@ -42,7 +42,6 @@ uint32 FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, Fil
 	strcpy_s(sFullPath, sPath);
 	strcat_s(sFullPath, sExtension);
 	hFind = FindFirstFileA(sFullPath, &data);
-	uint32 uCount = 0;
 
 	if(hFind != INVALID_HANDLE_VALUE)
 	{
@@ -60,11 +59,9 @@ uint32 FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, Fil
 	}
 
 	FindClose(hFind);
-
-	return uCount;
 }
 
-uint32 FileSystem::GetListOfFolders(const char* sPath, char** ppsBuf, const uint32 uBufSize, const uint32 uStringSize)
+void FileSystem::GetListOfFolders(const char* sPath, FileSystem::FileData& fileData)
 {
 	WIN32_FIND_DATA data;
 	ZeroMemory(&data, sizeof(WIN32_FIND_DATA));
@@ -74,11 +71,11 @@ uint32 FileSystem::GetListOfFolders(const char* sPath, char** ppsBuf, const uint
 	{
 		if(data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			//	Add it here
+			fileData.Add(data.cFileName);
 		}
 	} while(FindNextFileA(hFind, &data) != 0);
 
-	return 0;
+	FindClose(hFind);
 }
 
 uint64 FileSystem::GetFileSize(const char* sFilename)
