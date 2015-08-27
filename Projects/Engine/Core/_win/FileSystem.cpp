@@ -4,7 +4,7 @@
 namespace neko
 {
 
-void FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, DArray<U8String>& list)
+uint32 FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, char** ppsBuf, const uint32 uBufSize, const uint32 uStringSize)
 {
 	WIN32_FIND_DATA data;
 	ZeroMemory(&data, sizeof(WIN32_FIND_DATA));
@@ -15,22 +15,26 @@ void FileSystem::GetListOfFiles(const char* sPath, const char* sExtension, DArra
 	strcpy_s(sFullPath, sPath);
 	strcat_s(sFullPath, sExtension);
 	hFind = FindFirstFileA(sFullPath, &data);
+	uint32 uCount = 0;
+
 	if(hFind != INVALID_HANDLE_VALUE)
 	{
 		strcpy_s(sFile, sPath);
 		strcat_s(sFile, data.cFileName);
-		U8String sT;
-		sT.Set(sFile);
-		list.Add(sT);
-		while(FindNextFileA(hFind, &data) != 0)
+		char* pS = &ppsBuf[uCount++][0];
+		strcpy_s(pS, uStringSize, sFile);
+
+		while(FindNextFileA(hFind, &data) != 0 && uCount < uBufSize)
 		{
 			sFile[0] = '\0';
 			strcpy_s(sFile, sPath);
 			strcat_s(sFile, data.cFileName);
-			sT.Set(sFile);
-			list.Add(sT);
+			pS = &ppsBuf[uCount++][0];
+			strcpy_s(pS, uStringSize, sFile);
 		}
 	}
+
+	return uCount;
 }
 
 uint64 FileSystem::GetFileSize(const char* sFilename)
