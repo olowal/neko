@@ -4,6 +4,7 @@ namespace neko
 {
 
 StringCRC::StringCRC():m_uChecksum(0){}
+StringCRC::StringCRC(const char* sStr){ m_uChecksum = CalculateStringChecksum(sStr); }
 StringCRC::~StringCRC(){}
 
 uint32 StringCRC::CalculateStringChecksum(const char* sStr)
