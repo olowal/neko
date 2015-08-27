@@ -71,7 +71,11 @@ void FileSystem::GetListOfFolders(const char* sPath, FileSystem::FileData& fileD
 	{
 		if(data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			fileData.Add(data.cFileName);
+			if(strcmp(data.cFileName, ".") != 0 
+				&& strcmp(data.cFileName, "..") != 0)
+			{
+				fileData.Add(data.cFileName);
+			}
 		}
 	} while(FindNextFileA(hFind, &data) != 0);
 
