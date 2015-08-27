@@ -6,6 +6,7 @@
     <ClCompile Include="_win\FileSystem.cpp">
       <Filter>_win</Filter>
     </ClCompile>
+    <ClCompile Include="StringCRC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h" />
@@ -24,6 +25,7 @@
     <ClInclude Include="_win\FileSystem.h">
       <Filter>_win</Filter>
     </ClInclude>
+    <ClInclude Include="StringCRC.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
