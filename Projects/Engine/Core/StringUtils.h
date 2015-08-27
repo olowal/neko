@@ -16,7 +16,7 @@ namespace
 void GetFilenameAsIs(const char* sFilepath, U8String& sFilename)
 {
 	char sTmp[MAX_PATH];
-	strcpy(sTmp, sFilepath);
+	strcpy_s(sTmp, sFilepath);
 	int iLen = (int)strlen(sTmp);
 	while(iLen > 0 && sTmp[iLen - 1] != '.')
 	{
@@ -40,7 +40,7 @@ void GetFilenameAsIs(const char* sFilepath, U8String& sFilename)
 void GetFilenameAsIsW(const wchar_t* sFilepath, WString& sFilename)
 {
 	wchar_t sTmp[MAX_PATH];
-	wcscpy(sTmp, sFilepath);
+	wcscpy_s(sTmp, sFilepath);
 	int iLen = (int)wcslen(sTmp);
 	while(iLen > 0 && sTmp[iLen - 1] != '.')
 	{
