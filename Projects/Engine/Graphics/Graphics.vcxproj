@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="Color.h" />
     <ClInclude Include="GFXDevice.h" />
+    <ClInclude Include="IMGHeader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureMgr.h" />
     <ClInclude Include="Window.h" />

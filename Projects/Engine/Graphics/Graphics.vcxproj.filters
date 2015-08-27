@@ -6,6 +6,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureMgr.h" />
+    <ClInclude Include="IMGHeader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp" />
