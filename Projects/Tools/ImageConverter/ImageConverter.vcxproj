@@ -103,7 +103,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Projects\ThirdParty\SDL2\lib\$(Platform)\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\Projects\ThirdParty\SDL2\lib\$(Platform)\SDL2.dll" "$(TargetDir)SDL2.dll"</Command>
+      <Command>copy /Y "$(SolutionDir)\Projects\ThirdParty\SDL2\lib\$(Platform)\SDL2.dll" "$(TargetDir)SDL2.dll"
+IF NOT EXIST $(SolutionDir)_data MKDIR $(SolutionDir)_data</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -120,7 +121,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Projects\ThirdParty\SDL2\lib\$(Platform)\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\Projects\ThirdParty\SDL2\lib\$(Platform)\SDL2.dll" "$(TargetDir)SDL2.dll"</Command>
+      <Command>copy /Y "$(SolutionDir)\Projects\ThirdParty\SDL2\lib\$(Platform)\SDL2.dll" "$(TargetDir)SDL2.dll"
+IF NOT EXIST $(SolutionDir)_data MKDIR $(SolutionDir)_data</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,7 +143,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Projects\ThirdParty\SDL2\lib\$(Platform)\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\Projects\ThirdParty\SDL2\lib\$(Platform)\SDL2.dll" "$(TargetDir)SDL2.dll"</Command>
+      <Command>copy /Y "$(SolutionDir)\Projects\ThirdParty\SDL2\lib\$(Platform)\SDL2.dll" "$(TargetDir)SDL2.dll"
+IF NOT EXIST $(SolutionDir)_data MKDIR $(SolutionDir)_data</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,7 +165,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Projects\ThirdParty\SDL2\lib\$(Platform)\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\Projects\ThirdParty\SDL2\lib\$(Platform)\SDL2.dll" "$(TargetDir)SDL2.dll"</Command>
+      <Command>copy /Y "$(SolutionDir)\Projects\ThirdParty\SDL2\lib\$(Platform)\SDL2.dll" "$(TargetDir)SDL2.dll"
+IF NOT EXIST $(SolutionDir)_data MKDIR $(SolutionDir)_data</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
