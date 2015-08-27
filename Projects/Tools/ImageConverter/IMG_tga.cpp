@@ -31,6 +31,9 @@
 #include "SDL2/SDL_endian.h"
 
 #include "ImageConverter.h"
+#include "Engine/Core/StringCRC.h"
+#include "Engine/Core/StringUtils.h"
+#include "Engine/Graphics/IMGHeader.h"
 
 #define LOAD_TGA
 
@@ -87,22 +90,8 @@ enum tga_type {
 #define LE16(p) ((p)[0] + ((p)[1] << 8))
 #define SETLE16(p, v) ((p)[0] = (v), (p)[1] = (v) >> 8)
 
-struct IMGHeader
-{
-	SDL_Color color;
-	Uint32 rmask;
-	Uint32 gmask;
-	Uint32 bmask;
-	Uint32 amask;
-	int width;
-	int height;
-	int bpp;
-	int ncolor;
-	bool hasPallete;
-};
-
 /* Load a TGA type image from an SDL datasource */
-SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile)
+SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile, const char* sFilename)
 {
     Sint64 start;
     const char *error = NULL;
@@ -121,6 +110,13 @@ SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile)
     int lstep;
     Uint32 pixel;
     int count, rep;
+
+	int iSize;
+	neko::U8String sName;
+	neko::GetFilenameAsIs(sFilename, sName);
+	neko::StringCRC hash(sName.CStr());
+	uint32 uHash;
+	uint32 uBlockSize;
 
     if ( !src ) {
         /* The error message has been set in SDL_RWFromFile */
@@ -333,7 +329,7 @@ SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile)
 
 	// save file to disk in bin here
 
-	IMGHeader header;
+	neko::IMGHeader header;
 	header.amask = amask;
 	header.bmask = bmask;
 	header.rmask = rmask;
@@ -341,22 +337,38 @@ SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile)
 	header.bpp = bpp;
 	header.width = w;
 	header.height = h;
+
+	neko::IMGPalette palette;
+
 	if(img->format->palette != NULL)
 	{
-		header.ncolor = img->format->palette->ncolors;
-		header.color.a = img->format->palette->colors->a;
-		header.color.b = img->format->palette->colors->b;
-		header.color.g = img->format->palette->colors->g;
-		header.color.r = img->format->palette->colors->r;
-		header.hasPallete = true;
+		palette.ncolor = img->format->palette->ncolors;
+		palette.color.a = img->format->palette->colors->a;
+		palette.color.b = img->format->palette->colors->b;
+		palette.color.g = img->format->palette->colors->g;
+		palette.color.r = img->format->palette->colors->r;
+		header.hasPalette = true;
 	}
 	else
 	{
-		header.hasPallete = false;
+		header.hasPalette = false;
 	}
+	
+	iSize = w * h;
+	uHash = hash.Get();
+	uBlockSize = (uint32)(sizeof(neko::IMGHeader) + (size_t)iSize) + (header.hasPalette ? sizeof(neko::IMGPalette) : (size_t)0);
 
-	fwrite(&header, sizeof(IMGHeader), 1, pFile);
-	fwrite(img->pixels, w * h, 1, pFile);
+	printf("Writing data\n");
+	printf("block size %u hash: %u\n", uBlockSize, uHash);
+
+	fwrite(&uBlockSize, sizeof(uint32), 1, pFile);
+	fwrite(&uHash, sizeof(uint32), 1, pFile);
+	fwrite(&header, sizeof(neko::IMGHeader), 1, pFile);
+	if(header.hasPalette)
+	{
+		fwrite(&palette, sizeof(neko::IMGPalette), 1, pFile);
+	}
+	fwrite(img->pixels, iSize * sizeof(Uint8), 1, pFile);
 
     return img;
 
@@ -414,7 +426,7 @@ SDL_Surface* ImageConverter::TGAToBin(const char* sFilename, FILE* pFile)
 		return NULL;
 	}
 
-	SDL_Surface* pSurface = IMG_LoadTGA_RW(pSrc, pFile);
+	SDL_Surface* pSurface = IMG_LoadTGA_RW(pSrc, pFile, sFilename);
 
 	if(!pSurface)
 	{
