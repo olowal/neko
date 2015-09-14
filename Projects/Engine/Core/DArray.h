@@ -231,7 +231,7 @@ protected:
 	{
 		if((p_iDstIndex!=p_iSrcIndex)&&(p_iCount>0))
 		{
-			memmove(&(m_pxE[p_iDstIndex]),&(m_pxE[p_iSrcIndex]),sizeof(TElemType)*p_iCount);
+			SDL_memmove(&(m_pxE[p_iDstIndex]),&(m_pxE[p_iSrcIndex]),sizeof(TElemType)*p_iCount);
 		};
 	};
 
