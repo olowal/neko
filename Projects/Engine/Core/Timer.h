@@ -1,6 +1,6 @@
 /****************************************************************************
 //	Filename: Timer.h
-//	Description: Basic timer class
+//	Description: Basic timer class, only counts milliseconds
 *****************************************************************************/
 
 #pragma once
@@ -19,7 +19,7 @@ public:
 	uint32 GetElapsed();
 
 private:
-	dword m_uStart;
+	uint32 m_uStart;
 };
 
 }	//	namespace neko

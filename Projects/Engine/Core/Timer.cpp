@@ -14,15 +14,15 @@ Timer::~Timer(){}
 
 void Timer::Reset()
 {
-	m_uStart = ::timeGetTime();
+	m_uStart = SDL_GetTicks();
 }
 
 uint32 Timer::GetElapsed()
 {
-	dword dwNow = ::timeGetTime();
-	dword dwDiff = (dwNow - m_uStart);
-	m_uStart = dwNow;
-	return static_cast<uint32>(dwDiff);
+	uint32 uNow = SDL_GetTicks();
+	uint32 uDiff = (uNow - m_uStart);
+	m_uStart = uNow;
+	return uDiff;
 }
 
 }	//	namespace neko
