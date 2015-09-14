@@ -11,7 +11,7 @@ void IString<char>::Set(const char* pzStr)
 	m_uLength = (uint32)strlen(pzStr);
 	const uint32 uSize = m_uLength + 1;
 	m_pzString = Alloc(uSize);
-	memcpy_s(m_pzString, uSize, pzStr, uSize);
+	SDL_memcpy(m_pzString, pzStr, uSize);
 }
 
 template <>
@@ -21,13 +21,13 @@ void IString<wchar_t>::Set(const wchar_t* pzStr)
 	m_uLength = (uint32)wcslen(pzStr);
 	const uint32 uSize = m_uLength + 1;
 	m_pzString = Alloc(uSize);
-	memcpy_s(m_pzString, uSize * sizeof(wchar_t), pzStr, uSize * sizeof(wchar_t));
+	SDL_memcpy(m_pzString, pzStr, uSize * sizeof(wchar_t));
 }
 
 template <>
 int IString<char>::_Cmp(const char* pzStr) const
 {
-	return strcmp(m_pzString, pzStr);
+	return SDL_strcmp(m_pzString, pzStr);
 }
 
 template <>
