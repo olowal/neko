@@ -57,6 +57,27 @@ public:
 		this->_31 += fX;
 		this->_32 += fY;
 	}
+
+	void Scale(float fWidth, float fHeight, const Vec2& vCenter)
+	{
+		this->_11 = fWidth;
+		this->_12 = 0.0f;
+		this->_21 = 0.0f;
+		this->_22 = fHeight;
+		this->_31 = vCenter.m_fX - fWidth * vCenter.m_fX;
+		this->_32 = vCenter.m_fY - fHeight * vCenter.m_fY;
+	}
+
+	void Scale(float fWidth, float fHeight, float fX, float fY)
+	{
+		Scale(fWidth, fHeight, Vec2(fX, fY));
+	}
+
+	void Scale(const Vec2& vScale, const Vec2& vCenter)
+	{
+		Scale(vScale.m_fX, vScale.m_fY, vCenter.m_fX, vCenter.m_fY);
+	}
+
 	void SetIdentity()
 	{
 		this->_11 = 1.0f;
