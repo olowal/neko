@@ -46,6 +46,17 @@ public:
 		this->_32 = fY;
 	}
 
+	void Translate(const Vec2& vT)
+	{
+		this->_31 += vT.m_fX;
+		this->_32 += vT.m_fY;
+	}
+
+	void Translate(float fX, float fY)
+	{
+		this->_31 += fX;
+		this->_32 += fY;
+	}
 	void SetIdentity()
 	{
 		this->_11 = 1.0f;
