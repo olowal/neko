@@ -13,7 +13,11 @@ namespace neko
 class Mat3x2 : public D2D1::Matrix3x2F
 {
 public:
-	Mat3x2(){}
+	Mat3x2()
+	{
+		SetIdentity();
+	}
+
 	Mat3x2(const D2D1::Matrix3x2F& mM)
 	{
 		this->_11 = mM._11;
