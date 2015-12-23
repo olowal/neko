@@ -141,6 +141,12 @@ void Application::Run()
 				const uint32 uCalcStart = SDL_GetTicks();
 				++m_uFrameIndex;
 
+				{
+					lua_State* pL = m_lua.L();
+					luabridge::LuaRef time = getGlobal(pL, "Time");
+					time["deltaTime"] = fDt;
+				}
+
 				m_pDevice->BeginDraw();
 				DoFrame(fDt);
 				m_pDevice->EndDraw();
