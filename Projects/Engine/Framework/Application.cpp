@@ -123,6 +123,7 @@ void Application::Run()
 		{
 			uint32 uNow = SDL_GetTicks();
 			uint32 uDiff = GetTickDiff(uLastFrame, uNow);
+			const float fDt = math::Min((static_cast<float>(uDiff) / 1000.0f), 1.0f);
 			int iWait = math::Clamp((int)(uFrameInterval - uDiff - 2), 0, 100);
 			if(iWait > 1)
 			{
