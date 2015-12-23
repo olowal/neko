@@ -114,7 +114,7 @@ bool Application::Init(const char* pzTitle, int iW, int iH, int iX, int iY)
 
 void Application::Run()
 {
-	uint32 uFrameInterval = 1000 / 50;
+	const uint32 uFrameInterval = 1000 / 50;
 	uint32 uLastFrame = SDL_GetTicks();
 	float fAvgTime = 0.0f;
 	while(!m_bShouldQuit)
@@ -138,13 +138,13 @@ void Application::Run()
 				m_fFps = 1000.0f / math::Max((float)uDiff, 1.0f);
 				m_iMs = (int)uDiff;
 				uLastFrame = uNow;
-				uint32 uCalcStart = SDL_GetTicks();
+				const uint32 uCalcStart = SDL_GetTicks();
 				++m_uFrameIndex;
 
 				m_pDevice->BeginDraw();
 				DoFrame();
 				m_pDevice->EndDraw();
-				uint32 uCalcEnd = SDL_GetTicks();
+				const uint32 uCalcEnd = SDL_GetTicks();
 				fAvgTime = fAvgTime * 0.99f + (float)(GetTickDiff(uCalcStart, uCalcEnd)) * 0.01f;
 			}
 		}
