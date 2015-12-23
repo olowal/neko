@@ -25,4 +25,10 @@ uint32 StringCRC::CalculateStringChecksum(const char* sStr)
 	return m_uChecksum;
 }
 
+uint32 StringCRC::GetCRC(const char* pzStr)
+{
+	StringCRC crc(pzStr);
+	return crc.Get();
+}
+
 }	//	namespace neko

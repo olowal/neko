@@ -5,7 +5,7 @@
 
 #pragma once
 #include "Engine/Common/Common.h"
-
+typedef struct lua_State lua_State;
 namespace neko
 {
 
@@ -105,6 +105,8 @@ public:
 	static Vec2 Zero;
 	static Vec2 Up;
 	static Vec2 Right;
+
+	static void Register(lua_State* pL);
 };
 
 }	//	namespace neko

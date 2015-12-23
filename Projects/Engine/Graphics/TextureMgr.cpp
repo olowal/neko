@@ -7,96 +7,77 @@ static const wchar_t* s_sTextureFolderName = L"Data/Textures/";
 namespace neko
 {
 
-TextureMgr::TextureMgr() //:
-//m_textures(MAX_TEXTURES)
+TextureMgr::TextureMgr() :
+m_textures(MAX_TEXTURES)
 {
-	m_pIWICFactory = NULL;
+	
 }
 
 TextureMgr::~TextureMgr()
 {
-	SafeRelease(m_pIWICFactory);
+	m_textures.Clear();
 }
 
 bool TextureMgr::Init()
 {
-	HRESULT hr = S_OK;
-	hr = CoCreateInstance(
-	CLSID_WICImagingFactory,
-	NULL,
-	CLSCTX_INPROC_SERVER,
-	IID_PPV_ARGS(&m_pIWICFactory)
-	);
-
-	return SUCCEEDED(hr);
+	return true;
 }
 
-Texture* TextureMgr::Load(const wchar_t* szFilename, const GFXDevice* pDevice)
+SDL_Texture* TextureMgr::Load(const GFXDevice* pDevice, const char* szFilename)
 {
-	WString sFile;
-	wchar_t sPath[MAX_PATH];
-	wcscpy_s(sPath, s_sTextureFolderName);
-	wcscat_s(sPath, szFilename);
 
-	sFile.Set(szFilename);
-	Texture* pTexture = DoesTextureExist(sFile);
+	SDL_Texture* pTexture = DoesTextureExist(szFilename);
 
 	if(pTexture != NULL)
 	{
-		return pTexture;
+		pTexture = pDevice->LoadTextureFromBinary(szFilename);
+		ASSERT(pTexture != NULL);
+		Texture* pT = m_textures.Alloc();
+		pT->Init(pTexture, szFilename);
 	}
 
-	ASSERT(m_pIWICFactory != NULL);
-	IWICBitmapDecoder* pDecoder = NULL;
-	HRESULT hr = m_pIWICFactory->CreateDecoderFromFilename(sPath, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &pDecoder);
-	ASSERT(SUCCEEDED(hr));
-
-	IWICBitmapFrameDecode* pFrame = NULL;
-
-	hr = pDecoder->GetFrame(0, &pFrame);
-	ASSERT(SUCCEEDED(hr));
-
-	IWICFormatConverter* pFormatConverter = NULL;
-	hr = m_pIWICFactory->CreateFormatConverter(&pFormatConverter);
-	ASSERT(SUCCEEDED(hr));
-
-	hr = pFormatConverter->Initialize(
-		pFrame, 
-		GUID_WICPixelFormat32bppPBGRA, 
-		WICBitmapDitherTypeNone, 
-		NULL, 
-		0.0f, 
-		WICBitmapPaletteTypeCustom
-		);
-
-	ASSERT(SUCCEEDED(hr));
-	
-	ID2D1Bitmap* pBitmap = pDevice->CreateBitmapFromWicBitmap(pFormatConverter);
-	ASSERT(pBitmap != NULL);
-
-	//pTexture = m_textures.Alloc();
-	pTexture->Init(pBitmap);
-
-	return NULL;
+	return pTexture;
 }
 
-void TextureMgr::Unload(Texture* pTexture)
+void TextureMgr::Unload(SDL_Texture* pTexture)
 {
-	//m_textures.Free(pTexture);
+	for(auto it = m_textures.Begin(); !it.IsEnd(); ++it)
+	{
+		Texture* pT = (*it);
+
+		if(pT->GetTexture() == pTexture)
+		{
+			m_textures.Free(pT);
+			break;
+		}
+	}
 }
 
-Texture* TextureMgr::DoesTextureExist(const WString& sName)
+void TextureMgr::Unload(const char* szName)
 {
-	/*ObjectPool<Texture>::Iterator it = m_textures.Begin();
-	for(; !it.IsEnd(); ++it)
+	for(auto it = m_textures.Begin(); !it.IsEnd(); ++it)
+	{
+		Texture* pT = (*it);
+
+		if(pT->GetName().Equals(szName))
+		{
+			m_textures.Free(pT);
+			break;
+		}
+	}
+}
+
+SDL_Texture* TextureMgr::DoesTextureExist(const char* szName)
+{
+	for(auto it = m_textures.Begin(); !it.IsEnd(); ++it)
 	{
 		Texture* pTexture = (*it);
 
-		if(pTexture->GetName() == sName)
+		if(pTexture->GetName().Equals(szName))
 		{
-			return pTexture;
+			return pTexture->GetTexture();
 		}
-	}*/
+	}
 
 	return NULL;
 }

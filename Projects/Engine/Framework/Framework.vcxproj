@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -26,26 +26,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -66,28 +66,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
+    <OutDir>$(SolutionDir)_bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <TargetExt>.lib</TargetExt>
     <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
-    <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)_build\obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
+    <OutDir>$(SolutionDir)_bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <TargetExt>.lib</TargetExt>
     <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
-    <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)_build\obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
+    <OutDir>$(SolutionDir)_bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <TargetExt>.lib</TargetExt>
     <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
-    <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)_build\obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
+    <OutDir>$(SolutionDir)_bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <TargetExt>.lib</TargetExt>
     <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
-    <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)_build\obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -95,7 +95,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Projects/;$(SolutionDir)/Projects/ThirdParty/SDL2/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Projects\;$(SolutionDir)Projects\ThirdParty\luabridge\;$(SolutionDir)Projects\ThirdParty\SDL2\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -107,7 +107,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Projects/;$(SolutionDir)/Projects/ThirdParty/SDL2/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Projects\;$(SolutionDir)Projects\ThirdParty\luabridge\;$(SolutionDir)Projects\ThirdParty\SDL2\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Projects/;$(SolutionDir)/Projects/ThirdParty/SDL2/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Projects\;$(SolutionDir)Projects\ThirdParty\luabridge\;$(SolutionDir)Projects\ThirdParty\SDL2\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -137,7 +137,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Projects/;$(SolutionDir)/Projects/ThirdParty/SDL2/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Projects\;$(SolutionDir)Projects\ThirdParty\luabridge\;$(SolutionDir)Projects\ThirdParty\SDL2\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -147,14 +147,33 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="ChildComponent.h" />
+    <ClInclude Include="ChildSystem.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="ScriptComponent.h" />
+    <ClInclude Include="ScriptSystem.h" />
+    <ClInclude Include="SpriteComponent.h" />
+    <ClInclude Include="SpriteRenderSystem.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="ChildSystem.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="ScriptSystem.cpp" />
+    <ClCompile Include="SpriteRenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ThirdParty\Lua\Lua.vcxproj">
+      <Project>{99b90a98-5645-4388-814d-986d512faa70}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.vcxproj">
       <Project>{611aea51-4fd7-43ef-92b3-0c5d8c799b27}</Project>
     </ProjectReference>

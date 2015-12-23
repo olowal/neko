@@ -1,9 +1,8 @@
-#include "ImageConverter.h"
 
 int main(int argc, char* argv[])
 {
-	neko::ImageConverter imageConverter;
-	imageConverter.Convert();
-	printf("Hello\n");
+	//neko::ImageConverter imageConverter;
+	//imageConverter.Convert();
+	
 	return 0;
 }

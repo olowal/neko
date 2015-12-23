@@ -27,7 +27,8 @@ public:
 		this->_31 = mM._31;
 		this->_31 = mM._31;
 	}
-	virtual ~Mat3x2(){}
+	
+	~Mat3x2(){}
 
 	Vec2 Pos() const
 	{
@@ -78,6 +79,12 @@ public:
 		Scale(vScale.m_fX, vScale.m_fY, vCenter.m_fX, vCenter.m_fY);
 	}
 
+	void Rotate(float fAngle, const Vec2& vCenter)
+	{
+		// not yet implemented
+		ASSERT(false);
+	}
+
 	void SetIdentity()
 	{
 		this->_11 = 1.0f;
@@ -87,6 +94,14 @@ public:
 		this->_31 = 0.0f;
 		this->_32 = 0.0f;
 	}
+
+private:
+	float _11;
+	float _12;
+	float _21;
+	float _22;
+	float _31;
+	float _32;
 };
 
 }	//	namespace neko

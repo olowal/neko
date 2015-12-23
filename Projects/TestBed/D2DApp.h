@@ -9,25 +9,22 @@
 #include "Engine/Framework/Application.h"
 #include "Engine/Scene/Camera.h"
 #include "Engine/Graphics/TextureMgr.h"
+#include "Engine/Core/LuaMgr.h"
 
 class D2DApp : public neko::Application
 {
+	typedef neko::Application Inherited;
 public:
 	D2DApp();
 	virtual ~D2DApp();
 
-	bool Init(HINSTANCE hInstance);
-	virtual void Run();
+	//bool Init(HINSTANCE hInstance);
 
 protected:
-	void DoFrame();
-	virtual bool OnInit(){return true;}
+	virtual void DoFrame();
+	virtual bool OnInit();
 	virtual void OnShut();
 private:
 	neko::TextureMgr m_texMgr;
 	neko::Camera m_camera;
-	neko::Window m_wnd;
-	float m_fFPS;
-	int m_iMs;
-	uint32 m_uFrameIndex;
 };

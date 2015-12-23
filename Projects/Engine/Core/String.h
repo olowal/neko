@@ -16,7 +16,8 @@ public:
 	m_pzString(NULL),
 	m_uLength(0){}
 	IString(const StrType& pzStr){}
-	~IString(){}
+	IString(const StrType* szStr);
+	~IString() { Clear(); }
 
 	void Clear()
 	{
@@ -30,6 +31,7 @@ public:
 
 	void Set(const IString sStr){ Set(sStr.m_pzString); }
 	void Set(const StrType* pzStr);
+	void Append(const StrType* pzStr);
 
 	uint32 Length() const { return m_uLength; }
 	bool Empty() const { return m_uLength == 0; }
@@ -42,12 +44,16 @@ public:
 		return m_pzString;
 	}
 
+	bool Equals(const char* szString) const;
+
 	bool operator == (const IString& sStr) const { return Compare(sStr) == 0; }
 	bool operator != (const IString& sStr) const { return Compare(sStr) != 0; }
 	bool operator >= (const IString& sStr) const { return Compare(sStr) >= 0; }
 	bool operator <= (const IString& sStr) const { return Compare(sStr) <= 0; }
 	bool operator > (const IString& sStr) const { return Compare(sStr) > 0; }
 	bool operator < (const IString& sStr) const { return Compare(sStr) < 0; }
+
+	IString& operator += (const IString& sStr) { Append(sStr.CStr()); return *this; }
 
 private:
 	int _Cmp(const StrType* pzString) const;
@@ -65,6 +71,6 @@ private:
 
 typedef IString<char> U8String;
 typedef IString<wchar_t> WString;
-typedef WString String;
+typedef U8String String;
 
 }	//	namespace neko

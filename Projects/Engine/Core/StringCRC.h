@@ -23,6 +23,8 @@ public:
 	uint32 Get() const { return m_uChecksum; }
 	void Clear() { m_uChecksum = 0; }
 
+	static uint32 GetCRC(const char* pzStr);
+
 private:
 	uint32 m_uChecksum;
 

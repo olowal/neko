@@ -15,15 +15,17 @@ public:
 	Texture(){}
 	~Texture(){}
 
-	void Init(ID2D1Bitmap* pBitmap) { m_pBitmap = pBitmap; }
+	void Init(SDL_Texture* pTexture, const char* szName) 
+	{ 
+		m_pTexture = pTexture; 
+		m_name.Set(szName);
+	}
 
-	void SetName(const String& name) { m_name.Set(name); }
-	const WString& GetName() const { return m_name; }
-
-	ID2D1Bitmap* GetBitmap() const { return m_pBitmap; }
+	const U8String& GetName() const { return m_name; }
+	SDL_Texture* GetTexture() const { return m_pTexture; }
 private:
-	WString m_name;
-	ID2D1Bitmap* m_pBitmap;
+	U8String m_name;
+	SDL_Texture* m_pTexture;
 };
 
 }	//	namespace neko

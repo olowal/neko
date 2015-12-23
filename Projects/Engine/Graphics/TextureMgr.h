@@ -19,18 +19,16 @@ public:
 
 	bool Init();
 
-	Texture* Load(const wchar_t* szFilename, const GFXDevice* pDevice);
-	void Unload(Texture* pTexture);
+	SDL_Texture* Load(const GFXDevice* pDevice, const char* szFilename);
+	void Unload(SDL_Texture* pTexture);
+	void Unload(const char* szFilename);
 
 	enum { MAX_TEXTURES = 64 };
 
 private:
-	static 
+	SDL_Texture* DoesTextureExist(const char* szName);
 
-	Texture* DoesTextureExist(const WString& sName);
-
-	//ObjectPool<Texture> m_textures;
-	IWICImagingFactory* m_pIWICFactory;
+	ObjectPool<Texture> m_textures;
 };
 
 }	//	namespace neko

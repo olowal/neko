@@ -4,180 +4,152 @@
 #include "Color.h"
 #include "Texture.h"
 
+#include "Engine/Core/ResourceSerializer.h"
+#include "ThirdParty/Lua/lua.hpp"
+#include "ThirdParty/luabridge/LuaBridge.h"
+
 namespace neko
 {
 
-GFXDevice::GFXDevice()
+static const GFXDevice* s_pDevice = NULL;
+
+void GFXDevice::Register(lua_State * pL)
 {
-	m_pFactory = NULL;
-	m_pRenderTarget = NULL;
-	m_pSolidColorBrush = NULL;
+	using namespace luabridge;
+	getGlobalNamespace(pL)
+		.beginClass<GFXDevice>("SDL_Renderer_Device")
+		.endClass();
+	getGlobalNamespace(pL)
+		.beginNamespace("GFXDevice")
+		.addFunction("Create", &GFXDevice::CreateDevice)
+		.endNamespace();
+}
+
+GFXDevice* GFXDevice::CreateDevice(SDL_Window* pWnd)
+{
+	SDL_Renderer* pRnd = SDL_CreateRenderer(pWnd,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+	ASSERT(pRnd != NULL);
+	GFXDevice* pDevice = new GFXDevice(pRnd);
+	SDL_RenderSetLogicalSize(pRnd,320,240);
+	return pDevice;
+}
+
+const GFXDevice* GFXDevice::GetDevice()
+{
+	return s_pDevice;
+}
+
+GFXDevice::GFXDevice(SDL_Renderer* pRnd)
+{
+	m_pRndr = pRnd;
 	m_mModel.SetIdentity();
+	s_pDevice = this;
 }
 
 GFXDevice::~GFXDevice()
 {
-	DiscardDeviceResources();
+	Shut();
+	s_pDevice = NULL;
 }
 
-bool GFXDevice::Init()
+bool GFXDevice::Init(SDL_Window* pWnd)
 {
-	ASSERT(!m_pFactory);
-	HRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &m_pFactory);
-	return hr == S_OK;
-	return false;
+	Shut();
+
+	return m_pRndr != NULL;
 }
 
-bool GFXDevice::CreateDeviceResources(HWND hWnd)
+void GFXDevice::Shut()
 {
-	ASSERT(m_pFactory != NULL);
-	ASSERT(!m_pRenderTarget);
-	RECT rc;
-	GetClientRect(hWnd, &rc);
-
-	D2D1_SIZE_U size = D2D1::SizeU(rc.right - rc.left, rc.bottom - rc.top);
-	HRESULT hr = m_pFactory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(), D2D1::HwndRenderTargetProperties(hWnd, size), &m_pRenderTarget);
-
-	if(hr != S_OK)
+	if(m_pRndr != NULL)
 	{
-		return false;
+		SDL_DestroyRenderer(m_pRndr);
+		m_pRndr = NULL;
 	}
-
-	ASSERT(m_pSolidColorBrush == NULL);
-	
-	hr = m_pRenderTarget->CreateSolidColorBrush(Color(Color::LightSlateGray), &m_pSolidColorBrush);
-
-	if(hr != S_OK)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-void GFXDevice::GetDesktopDpi(float& fDpiX, float& fDpiy)
-{
-	ASSERT(m_pFactory != NULL);
-	m_pFactory->GetDesktopDpi(&fDpiX, &fDpiy);
 }
 
 void GFXDevice::OnResize(uint32 uWidth, uint32 uHeight)
 {
-	if(m_pRenderTarget != NULL)
-	{
-		m_pRenderTarget->Resize(D2D1::SizeU(uWidth, uHeight));
-	}
+
 }
 
 void GFXDevice::BeginDraw()
 {
-	ASSERT(m_pRenderTarget != NULL);
-	m_pRenderTarget->BeginDraw();
-	m_pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	SDL_SetRenderDrawColor(m_pRndr, m_color.r, m_color.g, m_color.b, m_color.a);
+	SDL_RenderClear(m_pRndr);
 }
 
 void GFXDevice::EndDraw()
 {
-	ASSERT(m_pRenderTarget != NULL);
-	
-	m_pRenderTarget->EndDraw();
+	SDL_RenderPresent(m_pRndr);
 }
 
-void GFXDevice::OnRender()
+void GFXDevice::SetColor(const Color& color) const
 {
-
+	SDL_SetRenderDrawColor(m_pRndr, color.r, color.g, color.b, color.a);
 }
 
-void GFXDevice::Clear(const Color& color)
+void GFXDevice::SetClearColor(const Color& color)
 {
-	ASSERT(m_pRenderTarget != NULL);
-	m_pRenderTarget->Clear(color);
+	m_color.r = color.r;
+	m_color.g = color.g;
+	m_color.b = color.b;
+	m_color.a = color.a;
 }
 
-void GFXDevice::DiscardDeviceResources()
+void GFXDevice::DrawRect(const Vec2& vPos, const Vec2& vSize) const
 {
-	SafeRelease(m_pFactory);
-	SafeRelease(m_pRenderTarget);
+	const Vec2& vModel = m_mModel.Pos();
+
+	SDL_Rect rect;
+
+	rect.x = (int)(vModel.m_fX + vPos.m_fX);
+	rect.y = (int)(vModel.m_fY + vPos.m_fY);
+	rect.w = (int)vSize.m_fX;
+	rect.h = (int)vSize.m_fY;
+
+	SDL_RenderDrawRect(m_pRndr, &rect);
 }
 
-void GFXDevice::SetColor(const Color& color)
-{
-	ASSERT(m_pSolidColorBrush != NULL);
-	m_pSolidColorBrush->SetColor(&color);
+void GFXDevice::DrawLine(float fXFrom, float fYFrom, float fXTo, float fYTo) const
+{	
+	//m_pSolidColorBrush->SetColor(&color);
+
+	const Vec2& vModel = m_mModel.Pos();
+	fXFrom += vModel.m_fX;
+	fYFrom += vModel.m_fY;
+	fXTo += vModel.m_fX;
+	fYTo += vModel.m_fY;
+
+	int iXFrom = static_cast<int>(fXFrom);
+	int iYFrom = static_cast<int>(fYFrom);
+	int iXTo = static_cast<int>(fXTo);
+	int iYTo = static_cast<int>(fYTo);
+
+	SDL_RenderDrawLine(m_pRndr, iXFrom, iYFrom, iXTo, iYTo);
 }
 
-void GFXDevice::DrawRect(const Vec2& vPos, const Vec2& vSize, const Color& color)
+void GFXDevice::DrawLine(const Vec2& vFrom, const Vec2& vTo) const
 {
-	ASSERT(m_pRenderTarget != NULL);
-	ASSERT(m_pSolidColorBrush != NULL);
-
-	m_pSolidColorBrush->SetColor(&color);
-	Vec2 vHalfSize = vSize * 0.5f;
-
-	Mat3x2 mM;
-	mM.SetIdentity();
-	mM.SetTranslation(-vSize.m_fX + vPos.m_fX - vHalfSize.m_fX, -vSize.m_fY + vPos.m_fY - vHalfSize.m_fY);
-
-	m_pRenderTarget->SetTransform(m_mModel * mM);
-
-	D2D1_RECT_F rect = D2D1::RectF
-		(
-			vSize.m_fX,
-			vSize.m_fY,
-			(vSize.m_fX * 2.0f),
-			(vSize.m_fY * 2.0f)
-		);
-	m_pRenderTarget->FillRectangle(rect, m_pSolidColorBrush);
+	DrawLine(vFrom.m_fX, vFrom.m_fY, vTo.m_fX, vTo.m_fY);
 }
 
-void GFXDevice::DrawLine(float fXFrom, float fYFrom, float fXTo, float fYTo, const Color& color)
+void GFXDevice::DrawBitmap(const Vec2& vPos, SDL_Texture* pTexture, const SDL_Rect& size, float fAngle) const
 {
-	ASSERT(m_pRenderTarget != NULL);
-	ASSERT(m_pSolidColorBrush != NULL);
-	
-	m_pSolidColorBrush->SetColor(&color);
-
-	D2D_POINT_2F from = { fXFrom, fYFrom };
-	D2D_POINT_2F to = { fXTo, fYTo };
-
-	m_pRenderTarget->DrawLine(from, to, m_pSolidColorBrush);
-}
-
-void GFXDevice::DrawLine(const Vec2& vFrom, const Vec2& vTo, const Color& color)
-{
-	DrawLine(vFrom.m_fX, vFrom.m_fY, vTo.m_fX, vTo.m_fY, color);
-}
-
-void GFXDevice::DrawBitmap(const Vec2& vPos, Texture* pTexture)
-{
-	ID2D1Bitmap* pB = pTexture->GetBitmap();
-	D2D_SIZE_F size = pB->GetSize();
-	Vec2 vHalfSize(size.width * 0.5f, size.height * 0.5f);
-	Mat3x2 mM;
-	mM.SetIdentity();
-	mM.SetTranslation(-size.width + vPos.m_fX - vHalfSize.m_fX, -size.height + vPos.m_fY - vHalfSize.m_fY);
-	m_pRenderTarget->SetTransform(m_mModel * mM);
-	D2D1_RECT_F rect = D2D1::RectF
-		(
-			size.width,
-			size.height,
-			(size.width * 2.0f),
-			(size.height * 2.0f)
-		);
-	m_pRenderTarget->DrawBitmap(pB, rect);
-}
-
-ID2D1Bitmap* GFXDevice::CreateBitmapFromWicBitmap(IWICFormatConverter* pConvertedSourceBitmap) const
-{
-	ASSERT(m_pRenderTarget != NULL);
-	ID2D1Bitmap* pBitmap = NULL;
-	HRESULT hr = m_pRenderTarget->CreateBitmapFromWicBitmap(pConvertedSourceBitmap, NULL, &pBitmap);
-	if(!SUCCEEDED(hr))
+	SDL_Rect rct =
 	{
-		return NULL;
-	}
+		static_cast<int>(vPos.m_fX),
+		static_cast<int>(vPos.m_fY),
+		size.w,
+		size.h
+	};
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	SDL_RenderCopyEx(m_pRndr, pTexture, &size, &rct, static_cast<double>(fAngle), NULL, flip);
+}
 
-	return pBitmap;
+SDL_Texture* GFXDevice::LoadTextureFromBinary(const char* pzFilename) const
+{
+	return ResourceSerializer::LoadTextureFromBinary(m_pRndr, pzFilename);
 }
 
 }	//	namespace neko

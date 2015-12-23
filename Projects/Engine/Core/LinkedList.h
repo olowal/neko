@@ -16,6 +16,17 @@ class LinkedList
 	enum { DEFAULT_SIZE = 64 };
 	struct Node
 	{
+		Node():
+			pNext(NULL),
+			pPrev(NULL),
+			pData(NULL)
+		{}
+		~Node()
+		{
+			pNext = NULL;
+			pPrev = NULL;
+			pData = NULL;
+		}
 		Node* pNext;
 		Node* pPrev;
 		ElemType* pData;
@@ -29,11 +40,13 @@ public:
 
 	void AddToFirst(ElemType* pData);
 	void AddToLast(ElemType* pData);
+	bool Contains(ElemType* pData);
 	void Remove(ElemType* pData);
 	void Remove(const Node* pNode);
 	void RemoveFirst();
 	void RemoveLast();
 	void Sort();
+	void Clear();
 
 private:
 	PRIVATE_COPY(LinkedList);
@@ -79,7 +92,7 @@ public:
 		Iterator& operator--() { m_pCurrent = m_pCurrent->pPrev; return *this; }
 
 		const ElemType* operator*() const { return m_pCurrent->pData; }
-		ElemType* operator*() const { return m_pCurrent->pData; }
+		ElemType* operator*() { return m_pCurrent->pData; }
 		const Node* GetNode() const { return m_pCurrent; }
 		bool IsEnd() const { return m_pCurrent == NULL; }
 
@@ -115,6 +128,21 @@ void LinkedList<ElemType>::AddToLast(ElemType* pData)
 		m_pLast->pNext = pNode;
 		m_pLast = pNode;
 	}
+}
+
+template <class ElemType>
+bool LinkedList<ElemType>::Contains(ElemType* pData)
+{
+	Node* pNode = m_pFirst;
+	while(pNode != NULL)
+	{
+		if(pNode->pData == pData)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 template <class ElemType>
@@ -232,6 +260,14 @@ void LinkedList<ElemType>::Sort()
 			pNode = pNext;
 		}
 	} while(bSwapped)
+}
+
+template <class ElemType>
+void LinkedList<ElemType>::Clear()
+{
+	m_nodes.Clear();
+	m_pFirst = NULL;
+	m_pLast = NULL;
 }
 
 }	//	namespace neko

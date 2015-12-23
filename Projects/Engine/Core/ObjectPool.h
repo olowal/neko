@@ -12,7 +12,7 @@
 namespace neko
 {
 
-template <class ElemType>
+template <class ElemType, bool bNeedConstructor = true>
 class ObjectPool
 {
 public:
@@ -22,9 +22,14 @@ public:
 	ElemType* Alloc();
 	void Free(ElemType* pData);
 	uint32 GetSize() const { return m_uSize; }
+	void Clear();
+	ElemType& GetByIndex(uint32 uIndex)
+	{
+		return m_pool[uIndex].m_data;
+	}
 
 private:
-	PRIVATE_COPY(ObjectPool);
+	PRIVATE_COPY(ObjectPool)
 
 	struct Entry
 	{
@@ -36,13 +41,14 @@ private:
 		ElemType m_data;
 	};
 
+
 	Entry* GetHeaderFromData(ElemType* pData)
 	{
 		uint8* pHeader = (uint8*)pData;
 		pHeader -= sizeof(Entry*) * 2;
 		return (Entry*)pHeader;
 	}
-	// TODO: Remove DArray and exchange it with a similar class based on raw byte (uint8) memory so we dont call double constructors etc.
+
 	DArray<Entry, false> m_pool;
 
 	Entry* m_pFirst;
@@ -70,35 +76,22 @@ public:
 	Iterator Begin() const { return Iterator(m_pFirst); }
 };
 
-template <class ElemType>
-ObjectPool<ElemType>::ObjectPool(uint32 uSize, bool bCanResize)
+template <class ElemType, bool bNeedConstructor>
+ObjectPool<ElemType, bNeedConstructor>::ObjectPool(uint32 uSize, bool bCanResize)
 {
 	m_pool.SetSize(uSize);
 	m_bCanResize = bCanResize;
-	m_uSize = 0;
-	m_pFirst = NULL;
-	m_pFirstFree = &m_pool[0];
-	m_pFirstFree->m_pPrev = NULL;
-
-	Entry* pPrev = m_pFirstFree;
-	for(uint32 i = 1; i < uSize; i++)
-	{
-		Entry* pCurrent = &m_pool[i];
-		pPrev->m_pNext = pCurrent;
-		pCurrent->m_pPrev = pPrev;
-		pPrev = pCurrent;
-	}
-	pPrev->m_pNext = NULL;
+	Clear();
 }
 
-template <class ElemType>
-ObjectPool<ElemType>::~ObjectPool()
+template <class ElemType, bool bNeedConstructor>
+ObjectPool<ElemType, bNeedConstructor>::~ObjectPool()
 {
 	m_pool.Clear();
 }
 
-template <class ElemType>
-ElemType* ObjectPool<ElemType>::Alloc()
+template <class ElemType, bool bNeedConstructor>
+ElemType* ObjectPool<ElemType, bNeedConstructor>::Alloc()
 {
 	if(m_pFirstFree == NULL)
 	{
@@ -131,8 +124,8 @@ ElemType* ObjectPool<ElemType>::Alloc()
 	return &pAlloc->m_data;
 }
 
-template <class ElemType>
-void ObjectPool<ElemType>::Free(ElemType* pData)
+template <class ElemType, bool bNeedConstructor>
+void ObjectPool<ElemType, bNeedConstructor>::Free(ElemType* pData)
 {
 	Entry* pEntry = GetHeaderFromData(pData);
 	pEntry->m_data.~ElemType();
@@ -158,6 +151,37 @@ void ObjectPool<ElemType>::Free(ElemType* pData)
 	pEntry->m_pNext = m_pFirstFree;
 	pEntry->m_pPrev = NULL;
 	m_pFirstFree = pEntry;
+}
+
+template <class ElemType, bool bNeedConstructor>
+void ObjectPool<ElemType, bNeedConstructor>::Clear()
+{
+	if(bNeedConstructor)
+	{
+		Entry* pEntry = m_pFirst;
+		while(pEntry != NULL)
+		{
+			pEntry->m_data.~ElemType();
+			pEntry = pEntry->m_pNext;
+		}
+	}
+
+	m_uSize = 0;
+	m_pFirst = NULL;
+	m_pFirstFree = &m_pool[0];
+	m_pFirstFree->m_pPrev = NULL;
+	const uint32 uSize = m_pool.GetSize();
+	Entry* pPrev = m_pFirstFree;
+
+	for(uint32 i = 1; i < uSize; i++)
+	{
+		Entry* pCurrent = &m_pool[i];
+		pPrev->m_pNext = pCurrent;
+		pCurrent->m_pPrev = pPrev;
+		pPrev = pCurrent;
+	}
+
+	pPrev->m_pNext = NULL;
 }
 
 }	//	namespace neko

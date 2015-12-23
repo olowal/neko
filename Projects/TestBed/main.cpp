@@ -1,6 +1,6 @@
 #include "Engine/Common/Common.h"
 #include "D2DApp.h"
-
+/*
 int WINAPI WinMain(
 	HINSTANCE	hInstance,
 	HINSTANCE	hPrevInstance,
@@ -9,9 +9,11 @@ int WINAPI WinMain(
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
-
+*/
+int main()
+{
 	D2DApp app;
-	if(!app.Init(hInstance))
+	if(!app.Init("TestBed", 800, 600))
 	{
 		return (int)-1;
 	}

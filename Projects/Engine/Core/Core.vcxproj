@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -26,26 +26,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -66,28 +66,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
+    <OutDir>$(SolutionDir)_bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <TargetExt>.lib</TargetExt>
     <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
-    <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)_build\obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
+    <OutDir>$(SolutionDir)_bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <TargetExt>.lib</TargetExt>
     <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
-    <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)_build\obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
+    <OutDir>$(SolutionDir)_bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <TargetExt>.lib</TargetExt>
     <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
-    <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)_build\obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)/_bin/$(ProjectName)/$(Platform)/$(Configuration)/</OutDir>
+    <OutDir>$(SolutionDir)_bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <TargetExt>.lib</TargetExt>
     <TargetName>$(ProjectName)_$(Platform)$(Configuration)</TargetName>
-    <IntDir>$(SolutionDir)/_build/obj/$(ProjectName)/$(Platform)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)_build\obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -148,8 +148,12 @@
   <ItemGroup>
     <ClInclude Include="DArray.h" />
     <ClInclude Include="FileSystem.h" />
+    <ClInclude Include="IMG_tga.h" />
     <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="LuaMgr.h" />
     <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="Pair.h" />
+    <ClInclude Include="ResourceSerializer.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="StringCRC.h" />
     <ClInclude Include="StringUtils.h" />
@@ -157,12 +161,18 @@
     <ClInclude Include="_win\FileSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="IMG_tga.cpp" />
+    <ClCompile Include="LuaMgr.cpp" />
+    <ClCompile Include="ResourceSerializer.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StringCRC.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="_win\FileSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ThirdParty\Lua\Lua.vcxproj">
+      <Project>{99b90a98-5645-4388-814d-986d512faa70}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.vcxproj">
       <Project>{611aea51-4fd7-43ef-92b3-0c5d8c799b27}</Project>
     </ProjectReference>

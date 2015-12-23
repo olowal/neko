@@ -12,7 +12,7 @@ namespace neko
 
 class SceneManager;
 class Component;
-class SceneNode : TransformNode
+class SceneNode : public TransformNode
 {
 public:
 	SceneNode();

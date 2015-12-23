@@ -3,8 +3,11 @@
   <ItemGroup>
     <ClInclude Include="CollisionShape.h" />
     <ClInclude Include="CollisionSphere2D.h" />
+    <ClInclude Include="CollisionScene.h" />
+    <ClInclude Include="CircleShape.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionShape.cpp" />
+    <ClCompile Include="CollisionScene.cpp" />
   </ItemGroup>
 </Project>

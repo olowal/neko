@@ -30,10 +30,9 @@
 #include "SDL2/SDL_surface.h"
 #include "SDL2/SDL_endian.h"
 
-#include "ImageConverter.h"
 #include "Engine/Core/StringCRC.h"
 #include "Engine/Core/StringUtils.h"
-#include "Engine/Graphics/IMGHeader.h"
+#include "IMG_tga.h"
 
 #define LOAD_TGA
 
@@ -91,7 +90,7 @@ enum tga_type {
 #define SETLE16(p, v) ((p)[0] = (v), (p)[1] = (v) >> 8)
 
 /* Load a TGA type image from an SDL datasource */
-SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile, const char* sFilename)
+SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, neko::IMGHeader* pImgHeader)
 {
     Sint64 start;
     const char *error = NULL;
@@ -110,13 +109,6 @@ SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile, const char* sFilename)
     int lstep;
     Uint32 pixel;
     int count, rep;
-
-	int iSize;
-	neko::U8String sName;
-	neko::GetFilenameAsIs(sFilename, sName);
-	neko::StringCRC hash(sName.CStr());
-	uint32 uHash;
-	uint32 uBlockSize;
 
     if ( !src ) {
         /* The error message has been set in SDL_RWFromFile */
@@ -329,6 +321,17 @@ SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile, const char* sFilename)
 
 	// save file to disk in bin here
 
+	if(pImgHeader != NULL)
+	{
+		pImgHeader->amask = amask;
+		pImgHeader->bmask = bmask;
+		pImgHeader->gmask = gmask;
+		pImgHeader->rmask = rmask;
+		pImgHeader->bpp = bpp;
+		pImgHeader->width = w;
+		pImgHeader->height = h;
+	}
+	/*
 	neko::IMGHeader header;
 	header.amask = amask;
 	header.bmask = bmask;
@@ -337,7 +340,8 @@ SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile, const char* sFilename)
 	header.bpp = bpp;
 	header.width = w;
 	header.height = h;
-
+	*/
+	/*
 	neko::IMGPalette palette;
 
 	if(img->format->palette != NULL)
@@ -369,7 +373,7 @@ SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src, FILE* pFile, const char* sFilename)
 		fwrite(&palette, sizeof(neko::IMGPalette), 1, pFile);
 	}
 	fwrite(img->pixels, iSize * sizeof(Uint8), 1, pFile);
-
+	*/
     return img;
 
 unsupported:
@@ -414,51 +418,16 @@ SDL_Surface *IMG_LoadTGA_RW(SDL_RWops *src)
 
 #endif /* LOAD_TGA */
 
-namespace neko
+SDL_Surface* IMG_tga::Load(const char* pzFilename, neko::IMGHeader* pImgHeader)
 {
+	SDL_RWops* pSrc = SDL_RWFromFile(pzFilename, "rb");
 
-SDL_Surface* ImageConverter::TGAToBin(const char* sFilename, FILE* pFile)
-{
-	SDL_RWops* pSrc = SDL_RWFromFile(sFilename, "rb");
-	
 	if(!pSrc)
 	{
 		return NULL;
 	}
 
-	SDL_Surface* pSurface = IMG_LoadTGA_RW(pSrc, pFile, sFilename);
-
-	if(!pSurface)
-	{
-		return NULL;
-	}
-
-	return pSurface;
+	return IMG_LoadTGA_RW(pSrc, pImgHeader);
 }
-
-SDL_Texture* ImageConverter::LoadTGA(SDL_Renderer* p_pxRndr, const char* p_sFile)
-{
-	SDL_RWops* pxSrc = SDL_RWFromFile(p_sFile, "rb");
-	
-	if(!pxSrc)
-	{
-		return NULL;
-	}
-
-	/*SDL_Surface* pxSurface = IMG_LoadTGA_RW(pxSrc);
-
-	/if(!pxSurface)
-	{
-		return NULL;
-	}
-
-	SDL_Texture* pxTexture = SDL_CreateTextureFromSurface(p_pxRndr, pxSurface);
-	SDL_FreeSurface(pxSurface);
-
-	return pxTexture;*/
-	return NULL;
-}
-
-}	//	namespace neko
 
 #endif /* !defined(__APPLE__) || defined(SDL_IMAGE_USE_COMMON_BACKEND) */

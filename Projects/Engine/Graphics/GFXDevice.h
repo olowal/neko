@@ -8,47 +8,48 @@
 #include "Engine/Graphics/Color.h"
 #include "Engine/Math/Mat3x2.h"
 #include "Engine/Math/Vec2.h"
+#include "Engine/Graphics/Texture.h"
+
+typedef struct lua_State lua_State;
 
 namespace neko
 {
 
-class Texture;
 class GFXDevice
 {
 public:
-	GFXDevice();
 	~GFXDevice();
 
-	bool Init();
-	bool CreateDeviceResources(HWND hWnd);
+	bool Init(SDL_Window* pWnd);
+	void Shut();
 
-	void GetDesktopDpi(float& fDpiX, float& fDpiy);
 	void OnResize(uint32 uWidth, uint32 uHeight);
-	void OnRender();
 
 	void BeginDraw();
 	void EndDraw();
 
 	void Clear(const Color& color);
-	void SetColor(const Color& color);
-
-	void DrawRect(const Vec2& vPos, const Vec2& vSize, const Color& color);
-	void DrawLine(float fXFrom, float fYFrom, float fXTo, float fYTo, const Color& color);
-	void DrawLine(const Vec2& vFrom, const Vec2& vTo, const Color& color);
-	void DrawBitmap(const Vec2& vPos, Texture* pTexture);
+	void SetClearColor(const Color& color);
+	void SetColor(const Color& color) const;
+	void DrawRect(const Vec2& vPos, const Vec2& vSize) const;
+	void DrawLine(float fXFrom, float fYFrom, float fXTo, float fYTo) const;
+	void DrawLine(const Vec2& vFrom, const Vec2& vTo) const;
+	void DrawBitmap(const Vec2& vPos, SDL_Texture* pTexture, const SDL_Rect& size, float fAngle) const;
 
 	void SetModelMatrix(const Mat3x2& mModel) { m_mModel = mModel; }
 
-	ID2D1Bitmap* CreateBitmapFromWicBitmap(IWICFormatConverter* pConvertedSourceBitmap) const;
+	SDL_Texture* LoadTextureFromBinary(const char* pzFilename) const;
+
+	static GFXDevice* CreateDevice(SDL_Window* pWnd);
+	static void Register(lua_State* pL);
+	static const GFXDevice* GetDevice();
 
 private:
-	void DiscardDeviceResources();
+	GFXDevice(SDL_Renderer* pRnd);
 
 	Mat3x2 m_mModel;
-
-	ID2D1Factory* m_pFactory;
-	ID2D1HwndRenderTarget* m_pRenderTarget;
-	ID2D1SolidColorBrush* m_pSolidColorBrush;
+	SDL_Color m_color;
+	SDL_Renderer* m_pRndr;
 };
 
 }	//	namespace neko

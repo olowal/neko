@@ -2,11 +2,18 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="String.cpp" />
     <ClCompile Include="_win\FileSystem.cpp">
       <Filter>_win</Filter>
     </ClCompile>
-    <ClCompile Include="StringCRC.cpp" />
+    <ClCompile Include="StringCRC.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_tga.cpp" />
+    <ClCompile Include="ResourceSerializer.cpp" />
+    <ClCompile Include="LuaMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h" />
@@ -19,13 +26,25 @@
     <ClInclude Include="LinkedList.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="String.h" />
-    <ClInclude Include="StringUtils.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="_win\FileSystem.h">
       <Filter>_win</Filter>
     </ClInclude>
-    <ClInclude Include="StringCRC.h" />
+    <ClInclude Include="Pair.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="StringCRC.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="IMG_tga.h" />
+    <ClInclude Include="ResourceSerializer.h" />
+    <ClInclude Include="LuaMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
@@ -33,6 +52,9 @@
     </Filter>
     <Filter Include="_win">
       <UniqueIdentifier>{1b7d4849-f833-498b-ae81-9c450ac40839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="String">
+      <UniqueIdentifier>{1bef1a79-2974-4e25-be9a-553b3fd919ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
