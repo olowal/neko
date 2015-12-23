@@ -34,7 +34,7 @@ public:
 protected:
 	virtual bool OnInit(){ return true; }
 	virtual void OnShut(){}
-	virtual void DoFrame();
+	virtual void DoFrame(const float fDt);
 
 	virtual void Register(lua_State* pL);
 

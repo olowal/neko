@@ -17,7 +17,7 @@ public:
 
 	virtual void Init(lua_State* pL);
 	virtual void Shut();
-	virtual void Run(float fDelta);
+	virtual void Run(const float fDt);
 
 	void Free(GameObject* pObj);
 

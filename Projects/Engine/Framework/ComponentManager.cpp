@@ -47,7 +47,7 @@ void ComponentManager::Shut()
 	System<ChildSystem>::Clear();
 }
 
-void ComponentManager::Run(float fDelta)
+void ComponentManager::Run(const float fDelta)
 {
 	System<ScriptSystem>::Run(fDelta);
 	System<ChildSystem>::Run(fDelta);

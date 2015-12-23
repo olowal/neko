@@ -15,7 +15,7 @@ bool ChildSystem::GetComponents(GameObject* pObj, Components* pComp)
 	return (pComp->pChild != NULL && pComp->pTrans != NULL);
 }
 
-void ChildSystem::Run(Components* pComp, float fDelta)
+void ChildSystem::Run(Components* pComp, const float fDelta)
 {
 	const float fParentAngle = pComp->pChild->pParentTrans->fAngle;
 	const Vec2& vParentPos = pComp->pChild->pParentTrans->vPos;

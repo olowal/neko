@@ -49,12 +49,12 @@ public:
 		}
 	}
 
-	static void Run(float fDelta)
+	static void Run(const float fDt)
 	{
 		for(auto it = ms_systems.Begin(); !it.IsEnd(); ++it)
 		{
 			Components* pC = (*it);
-			SystemType::Run(pC, fDelta);
+			SystemType::Run(pC, fDt);
 		}
 	}
 

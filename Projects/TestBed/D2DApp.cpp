@@ -38,7 +38,7 @@ void D2DApp::DoFrame()
 
 	m_pDevice->SetColor(clr);
 	m_pDevice->DrawLine(20.0f, 30.0f, 60.0f, 60.0f);
-	Inherited::DoFrame();
+	Inherited::DoFrame(0.0f);
 }
 
 void D2DApp::OnShut()

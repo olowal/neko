@@ -142,7 +142,7 @@ void Application::Run()
 				++m_uFrameIndex;
 
 				m_pDevice->BeginDraw();
-				DoFrame();
+				DoFrame(fDt);
 				m_pDevice->EndDraw();
 				const uint32 uCalcEnd = SDL_GetTicks();
 				fAvgTime = fAvgTime * 0.99f + (float)(GetTickDiff(uCalcStart, uCalcEnd)) * 0.01f;
@@ -182,11 +182,11 @@ uint32 Application::GetTickDiff(uint32 uStart, uint32 uEnd) const
 	return static_cast<uint32>(iD);
 }
 
-void Application::DoFrame()
+void Application::DoFrame(const float fDt)
 {
 	m_inputManager.Update();
 	GameObject::UpdateComponents();
-	m_componentManager.Run(0.0f);
+	m_componentManager.Run(fDt);
 }
 
 bool Application::CreateGameObject(const char* szHandle)

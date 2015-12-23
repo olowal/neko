@@ -18,7 +18,7 @@ public:
 	};
 
 	static bool GetComponents(GameObject* pObj, Components* pComp);
-	static void Run(Components* pComp, float fDelta);
+	static void Run(Components* pComp, const float fDelta);
 };
 
 }	//	namespace neko

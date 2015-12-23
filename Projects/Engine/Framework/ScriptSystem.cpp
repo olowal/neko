@@ -27,7 +27,7 @@ bool ScriptSystem::GetComponents(GameObject* pObj, Components* pComp)
 	return false;
 }
 
-void ScriptSystem::Run(Components* pComp, float fDelta)
+void ScriptSystem::Run(Components* pComp, const float fDelta)
 {
 	ASSERT(pComp->pScript->pL != NULL);
 	ASSERT(pComp->pScript->pLuaRef != NULL);
