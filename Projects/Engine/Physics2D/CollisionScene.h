@@ -6,7 +6,7 @@
 #include "Engine/Common/Common.h"
 #include "Engine/Core/LinkedList.h"
 #include "Engine/Core/ObjectPool.h"
-#include "Engine/Physics2D/CircleShape.h"
+#include "Engine/Physics2D/CollisionShape.h"
 namespace neko
 {
 
@@ -16,14 +16,14 @@ public:
 	CollisionScene();
 	~CollisionScene();
 
-	CircleShape* AddCircleShape();
-	void RemoveCircle(CircleShape* pCircle);
+	//CircleShape* AddCircleShape();
+	//void RemoveCircle(CircleShape* pCircle);
 	void CheckCollisions();
 private:
-	void AddShape(CollisionShape* pShape);
+	//void AddShape(CollisionShape* pShape);
 
-	LinkedList<CollisionShape> m_shapes;
-	ObjectPool<CircleShape> m_circles;
+	LinkedList<CircleShape2D> m_shapes;
+	ObjectPool<CircleShape2D> m_circles;
 };
 
 }	//	namespace neko

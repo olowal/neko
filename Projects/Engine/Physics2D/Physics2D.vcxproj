@@ -146,12 +146,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CircleShape.h" />
+    <ClInclude Include="CollisionPairs.h" />
     <ClInclude Include="CollisionScene.h" />
     <ClInclude Include="CollisionShape.h" />
     <ClInclude Include="CollisionSphere2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionPairs.cpp" />
     <ClCompile Include="CollisionScene.cpp" />
     <ClCompile Include="CollisionShape.cpp" />
   </ItemGroup>

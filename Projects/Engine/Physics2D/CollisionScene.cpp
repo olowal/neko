@@ -7,7 +7,7 @@ namespace neko
 CollisionScene::CollisionScene():
 m_circles(64){}
 CollisionScene::~CollisionScene(){}
-
+/*
 CircleShape* CollisionScene::AddCircleShape()
 {
 	CircleShape* pCircle = m_circles.Alloc();
@@ -18,13 +18,13 @@ CircleShape* CollisionScene::AddCircleShape()
 void CollisionScene::RemoveCircle(CircleShape* pCircle)
 {
 	m_circles.Free(pCircle);
-}
+}*/
 
 void CollisionScene::CheckCollisions()
 {
 	for(auto it = m_shapes.Begin(); !it.IsEnd(); ++it)
 	{
-		CollisionShape* pShapeA = (*it);
+		//CollisionShape* pShapeA = (*it);
 
 		/*for(auto it2 = m_shapes.Begin(); !it2.IsEnd(); ++it2)
 		{

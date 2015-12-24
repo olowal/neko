@@ -9,20 +9,36 @@
 namespace neko
 {
 
-class CircleShape;
-class CollisionShape
+struct Circle2D
+{
+	Vec2 center;
+	float radius;
+};
+struct Box2D
+{
+	Vec2 center;
+	Vec2 extents;
+};
+struct Line2D
+{
+	Vec2 begin;
+	Vec2 end;
+};
+
+template <class Shape>
+class CollisionShape2D
 {
 public:
-	CollisionShape(){}
-	virtual ~CollisionShape(){}
+	CollisionShape2D(){}
+	~CollisionShape2D(){}
 
-	virtual bool Intersects(const CircleShape* pShape){return false;}
+	Vec2 GetPosition() const { return position + shape.center; }
 
-	void SetPosition(const Vec2& vPos) { m_vPos = vPos; }
-	const Vec2& GetPosition() const { return m_vPos; }
-
-protected:
-	Vec2 m_vPos;
+	Shape shape;
+	Vec2 position;
 };
+
+typedef CollisionShape2D<Circle2D> CircleShape2D;
+typedef CollisionShape2D<Box2D> BoxShape2D;
 
 }	//	namespace neko
