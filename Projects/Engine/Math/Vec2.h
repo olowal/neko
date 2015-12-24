@@ -90,12 +90,12 @@ public:
 		return Vec2(p_kxrA.m_fX*m_fX, p_kxrA.m_fY*m_fY);
 	};
 
-	float Distance(const Vec2& p_kvrV)
+	float Distance(const Vec2& p_kvrV) const
 	{
 		return (*this - p_kvrV).Abs();
 	}
 
-	float DistanceSqr(const Vec2& p_kvrV)
+	float DistanceSqr(const Vec2& p_kvrV) const
 	{
 		return (*this - p_kvrV).AbsSquare();
 	}
