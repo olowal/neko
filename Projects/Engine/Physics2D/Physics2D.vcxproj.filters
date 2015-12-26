@@ -5,6 +5,7 @@
     <ClInclude Include="CollisionSphere2D.h" />
     <ClInclude Include="CollisionScene.h" />
     <ClInclude Include="CollisionPairs.h" />
+    <ClInclude Include="CollisionDetection.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionShape.cpp" />
