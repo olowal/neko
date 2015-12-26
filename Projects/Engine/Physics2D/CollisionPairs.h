@@ -15,7 +15,7 @@ public:
 	ShapeA a;
 	ShapeB b;
 
-	bool Intersects() const;
+	bool Intersects() const {return false;}
 };
 
 typedef CollisionPair<CircleShape2D, CircleShape2D> CircleToCircleCollision2D;
