@@ -13,8 +13,8 @@ namespace neko
 template <class SystemType>
 class System
 {
-public:
 	typedef typename SystemType::Components Components;
+public:
 	static void Init() 
 	{ 
 		ms_components = new Components [GameObject::NumGameObjects];
