@@ -18,7 +18,7 @@ template <class ComponentType>
 class Component
 {
 public:
-	static ComponentType* GetComponent(GameObject* pObj)
+	static ComponentType* GetComponent(const GameObject* pObj)
 	{
 		const uint32 uIndex = pObj->GetIndex();
 		ComponentType* pC = ms_allocations[uIndex] ? &ms_components[uIndex] : NULL;
