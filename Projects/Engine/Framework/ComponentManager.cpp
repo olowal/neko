@@ -4,6 +4,7 @@
 #include "TransformComponent.h"
 #include "ScriptComponent.h"
 #include "ChildComponent.h"
+#include "CollisionMasks.h"
 #include "Component.h"
 #include "SpriteRenderSystem.h"
 #include "ScriptSystem.h"
@@ -30,10 +31,12 @@ void ComponentManager::Init(lua_State* pL)
 	Component<ChildComponent>::Init();
 	Component<SpriteComponent>::Init();
 	Component<ScriptComponent>::Init();
+	Component<CollisionMasks>::Init();
 
 	Component<TransformComponent>::RegisterLua(pL);
 	Component<ChildComponent>::RegisterLua(pL);
 	Component<SpriteComponent>::RegisterLua(pL);
+	Component<CollisionMasks>::RegisterLua(pL);
 
 	System<SpriteRenderSystem>::Init();
 	System<ScriptSystem>::Init();
@@ -67,6 +70,7 @@ void ComponentManager::Free(GameObject* pObj)
 	Component<ChildComponent>::Free(pObj);
 	Component<SpriteComponent>::Free(pObj);
 	Component<ScriptComponent>::Free(pObj);
+	Component<CollisionMasks>::Free(pObj);
 }
 
 }	//	namespace neko
