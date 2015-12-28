@@ -27,18 +27,31 @@ public:
 
 	static ComponentType* Create(GameObject* pObj)
 	{
-		pObj->SetChanged();
 		const uint32 uIndex = pObj->GetIndex();
-		ComponentType* pC = &ms_components[uIndex];
-		ms_allocations[uIndex] = true;
-		OnActivate(pC);
-		return pC;
+		if(!ms_allocations[uIndex])
+		{
+			pObj->SetChanged();
+
+			ComponentType* pC = &ms_components[uIndex];
+			ms_allocated.AddToLast(pC);
+			ms_allocations[uIndex] = true;
+			OnActivate(pC);
+			return pC;
+		}
+
+		return NULL;
 	}
 
 	static void Free(GameObject* pObj)
 	{
 		const uint32 uIndex = pObj->GetIndex();
-		ms_allocations[uIndex] = false;
+		if(ms_allocations[uIndex])
+		{
+			OnDeactivate(&ms_components[uIndex]);
+			ms_allocated.Remove(&ms_components[uIndex]);
+			ms_allocations[uIndex] = false;
+			pObj->SetChanged();
+		}
 	}
 
 	static void Init() 
@@ -59,9 +72,13 @@ public:
 	}
 
 protected:
+	static LinkedList<ComponentType> ms_allocated;
 	static ComponentType* ms_components;
 	static bool* ms_allocations;
 };
+
+template <class ComponentType>
+LinkedList<ComponentType> Component<ComponentType>::ms_allocated;
 
 template <class ComponentType>
 ComponentType* Component<ComponentType>::ms_components = NULL;
