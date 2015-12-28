@@ -21,6 +21,8 @@
 #include <limits.h>
 #include <direct.h>
 
+#include <tuple>
+
 #include <d2d1_2.h>
 #include <d2d1_2helper.h>
 #include <dwrite.h>
