@@ -6,24 +6,27 @@
 #include "Engine/Common/Common.h"
 #include "Engine/Core/LinkedList.h"
 #include "Engine/Core/ObjectPool.h"
+#include "Engine/Core/Pair.h"
 #include "Engine/Physics2D/CollisionShape.h"
 namespace neko
 {
-
+struct CollisionPairGroup;
+class GameObject;
 class CollisionScene
 {
 public:
 	CollisionScene();
 	~CollisionScene();
 
-	//CircleShape* AddCircleShape();
-	//void RemoveCircle(CircleShape* pCircle);
+	void Flag(GameObject* pObj);
+	Pair<uint32, uint32> ClearGroupForObject(LinkedList<GameObject>& affectedObsOut, LinkedList<GameObject>& pairs, GameObject* pObj);
+
 	void CheckCollisions();
 private:
-	//void AddShape(CollisionShape* pShape);
+	LinkedList<GameObject>&  FindOrCreateGroup(GameObject* pObj);
 
-	LinkedList<CircleShape2D> m_shapes;
-	ObjectPool<CircleShape2D> m_circles;
+	LinkedList<GameObject> m_flaggedObjects;
+	ObjectPool<CollisionPairGroup> m_collisionPairs;
 };
 
 }	//	namespace neko

@@ -4,38 +4,70 @@
 namespace neko
 {
 
-CollisionScene::CollisionScene():
-m_circles(64){}
-CollisionScene::~CollisionScene(){}
-/*
-CircleShape* CollisionScene::AddCircleShape()
+struct CollisionPairGroup
 {
-	CircleShape* pCircle = m_circles.Alloc();
-	m_shapes.AddToLast(pCircle);
-	return pCircle;
+	LinkedList<GameObject> pairs;
+	GameObject* pGameObject;
+	CollisionPairGroup() : pGameObject(NULL) {}
+};
+
+CollisionPairGroup* FindGroup(ObjectPool<CollisionPairGroup>& pairs, GameObject* pObj)
+{
+	CollisionPairGroup* pPairGroup = NULL;
+
+	for(ObjectPool<CollisionPairGroup>::Iterator it = pairs.Begin(); !it.IsEnd(); ++it)
+	{
+		if((*it)->pGameObject == pObj)
+		{
+			pPairGroup = *it;
+		}
+	}
+
+	return pPairGroup;
 }
 
-void CollisionScene::RemoveCircle(CircleShape* pCircle)
+CollisionScene::CollisionScene():m_collisionPairs(32){}
+CollisionScene::~CollisionScene(){}
+
+void CollisionScene::Flag(GameObject* pObj)
 {
-	m_circles.Free(pCircle);
-}*/
+	if(!m_flaggedObjects.Contains(pObj))
+	{
+		m_flaggedObjects.AddToLast(pObj);
+	}
+}
+
+Pair<uint32, uint32> CollisionScene::ClearGroupForObject(LinkedList<GameObject>& affectedObsOut, LinkedList<GameObject>& pairs, GameObject * pObj)
+{
+	uint32 numObs = 0;
+	uint32 numObsCleared = 0;
+	LinkedList<GameObject>::Iterator it = pairs.Begin();
+	while(!it.IsEnd())
+	{
+		GameObject* pCollPair = *it;
+
+	}
+
+
+	return Pair<uint32, uint32>();
+}
 
 void CollisionScene::CheckCollisions()
 {
-	for(auto it = m_shapes.Begin(); !it.IsEnd(); ++it)
-	{
-		//CollisionShape* pShapeA = (*it);
 
-		/*for(auto it2 = m_shapes.Begin(); !it2.IsEnd(); ++it2)
-		{
-			CollisionShape* pShapeB = (*it2);
-			if(pShapeA != pShapeB
-				&& pShapeA->Intersects(pShapeB))
-			{
-			
-			}
-		}*/
+}
+
+LinkedList<GameObject>& CollisionScene::FindOrCreateGroup(GameObject * pObj)
+{
+	CollisionPairGroup* pPairGroup = FindGroup(m_collisionPairs, pObj);
+
+	if(pPairGroup == NULL)
+	{
+		pPairGroup = m_collisionPairs.Alloc();
+		pPairGroup->pGameObject = pObj;
 	}
+
+	return pPairGroup->pairs;
 }
 
 }	//	namespace neko
