@@ -61,6 +61,11 @@ public:
 		SDL_memset(ms_allocations, false, sizeof(bool) * GameObject::NumGameObjects);
 	}
 
+	static bool HasComponent(const GameObject* pObj)
+	{
+		return ms_allocations[pObj->GetIndex()];
+	}
+
 	static void RegisterLua(lua_State* pL){}
 	static void OnActivate(ComponentType* pC){}
 	static void OnDeactivate(ComponentType* pC){}
