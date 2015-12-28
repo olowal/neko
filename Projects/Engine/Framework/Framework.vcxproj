@@ -149,6 +149,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="ChildComponent.h" />
     <ClInclude Include="ChildSystem.h" />
+    <ClInclude Include="CollisionMasks.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="EventManager.h" />
