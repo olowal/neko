@@ -71,6 +71,9 @@ public:
 		delete [] ms_allocations;
 	}
 
+	static typename LinkedList<ComponentType>::Iterator Begin() { return ms_allocated.Begin(); }
+	static typename LinkedList<ComponentType>::Iterator End() { return ms_allocated.End(); }
+
 protected:
 	static LinkedList<ComponentType> ms_allocated;
 	static ComponentType* ms_components;
