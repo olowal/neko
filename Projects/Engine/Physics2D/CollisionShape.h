@@ -6,6 +6,7 @@
 #pragma once
 #include "Engine/Common/Common.h"
 #include "Engine/Math/Vec2.h"
+#include "Engine/Core/Pair.h"
 namespace neko
 {
 
@@ -40,5 +41,11 @@ public:
 
 typedef CollisionShape2D<Circle2D> CircleShape2D;
 typedef CollisionShape2D<Box2D> BoxShape2D;
+
+typedef std::tuple<
+	Pair<CircleShape2D, BoxShape2D>,
+	Pair<CircleShape2D, CircleShape2D>,
+	Pair<BoxShape2D, BoxShape2D>
+> ValidCollisionPairs;
 
 }	//	namespace neko
