@@ -80,7 +80,7 @@ public:
 	{
 		float fD = Abs(); if(fD <= 0.0f)
 		{
-			SetXY(1.0f, 0.0f, 0.0f);
+			SetXY(1.0f, 0.0f);
 		}
 		else { m_fX /= fD; m_fY /= fD; };
 	};
