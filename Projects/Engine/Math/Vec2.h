@@ -40,7 +40,7 @@ public:
 	}
 
 	void Clear() { (*(int*)&m_fX) = (*(int*)&m_fY) = 0; };
-	void SetXY(float p_fX, float p_fY, float p_fZ) { m_fX = p_fX; m_fY = p_fY; }
+	void SetXY(float p_fX, float p_fY) { m_fX = p_fX; m_fY = p_fY; }
 
 	Vec2 operator+(const Vec2& p_kxrA) const { return Vec2(m_fX + p_kxrA.m_fX, m_fY + p_kxrA.m_fY); }
 	Vec2& operator+=(const Vec2& p_kxrA) { m_fX += p_kxrA.m_fX; m_fY += p_kxrA.m_fY; return *this; }
