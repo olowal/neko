@@ -50,15 +50,16 @@ void Component<CollisionMasks>::RegisterLua(lua_State* pL)
 {
 	using namespace luabridge;
 	getGlobalNamespace(pL)
-		.beginClass<CollisionMasks>("CollisionMasks")
+		.beginClass<CollisionMasks>("CollisionMasksComponent")
 		.endClass();
 
 	getGlobalNamespace(pL)
-		.beginNamespace("CollisionMask")
+		.beginNamespace("CollisionMasks")
 		.addFunction("AddTarget", AddTarget)
 		.addFunction("AddMask", AddMask)
 		.addFunction("RemoveMask", RemoveMask)
 		.addFunction("RemoveTarget", RemoveTarget)
+		.addFunction("Alloc", AllocCollisionMasks)
 		.endNamespace();
 }
 
