@@ -47,6 +47,15 @@
     <ClInclude Include="CollisionMasks.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Box2D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle2D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Line2D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
