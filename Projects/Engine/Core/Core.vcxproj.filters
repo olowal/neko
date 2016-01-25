@@ -45,6 +45,7 @@
     <ClInclude Include="IMG_tga.h" />
     <ClInclude Include="ResourceSerializer.h" />
     <ClInclude Include="LuaMgr.h" />
+    <ClInclude Include="StringUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">

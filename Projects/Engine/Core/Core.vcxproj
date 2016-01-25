@@ -156,6 +156,7 @@
     <ClInclude Include="ResourceSerializer.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="StringCRC.h" />
+    <ClInclude Include="StringUtil.h" />
     <ClInclude Include="StringUtils.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="_win\FileSystem.h" />
