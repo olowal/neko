@@ -7,6 +7,7 @@
 #include "Engine/Framework/GameObject.h"
 #include "Engine/Graphics/Window.h"
 #include "Engine/Core/StringUtil.h"
+#include "Engine/Core/Time.h"
 
 using namespace luabridge;
 
@@ -48,6 +49,8 @@ bool Application::Init(const char* pzTitle, int iW, int iH, int iX, int iY)
 #else
 	_chdir("../../Data/");
 #endif
+
+	Time::Init();
 
 	if(!OnInit())
 	{
@@ -117,31 +120,31 @@ bool Application::Init(const char* pzTitle, int iW, int iH, int iX, int iY)
 
 void Application::Run()
 {
-	const uint32 uFrameInterval = 1000 / 50;
-	uint32 uLastFrame = SDL_GetTicks();
+	const sint32 iFrameInterval = 1000 / 50;
+	sint32 iLastFrame = Time::GetTicks();
 	float fAvgTime = 0.0f;
 	while(!m_bShouldQuit)
 	{
 		if(MessagePump())
 		{
-			uint32 uNow = SDL_GetTicks();
-			uint32 uDiff = GetTickDiff(uLastFrame, uNow);
-			const float fDt = math::Min((static_cast<float>(uDiff) / 1000.0f), 1.0f);
-			int iWait = math::Clamp((int)(uFrameInterval - uDiff - 2), 0, 100);
+			sint32 iNow = static_cast<sint32>(Time::GetTicks());
+			sint32 iDiff = Time::GetTickDiff(iLastFrame, iNow);
+			const float fDt = math::Min((static_cast<float>(iDiff) / 1000.0f), 1.0f);
+			sint32 iWait = math::Clamp((iFrameInterval - iDiff - 2), 0, 100);
 			if(iWait > 1)
 			{
 				SDL_WaitEventTimeout(NULL, iWait);
 			}
 
-			uNow = SDL_GetTicks();
-			uDiff = GetTickDiff(uLastFrame, uNow);
+			iNow = static_cast<sint32>(Time::GetTicks());
+			iDiff = Time::GetTickDiff(iLastFrame, iNow);
 
-			if(uDiff >= uFrameInterval)
+			if(iDiff >= iFrameInterval)
 			{
-				m_fFps = 1000.0f / math::Max((float)uDiff, 1.0f);
-				m_iMs = (int)uDiff;
-				uLastFrame = uNow;
-				const uint32 uCalcStart = SDL_GetTicks();
+				m_fFps = 1000.0f / math::Max(static_cast<float>(iDiff), 1.0f);
+				m_iMs = iDiff;
+				iLastFrame = iNow;
+				const uint32 uCalcStart = static_cast<sint32>(Time::GetTicks());
 				++m_uFrameIndex;
 
 				{
@@ -153,7 +156,7 @@ void Application::Run()
 				m_pDevice->BeginDraw();
 				DoFrame(fDt);
 				m_pDevice->EndDraw();
-				const uint32 uCalcEnd = SDL_GetTicks();
+				const sint32 uCalcEnd = static_cast<sint32>(SDL_GetTicks());
 				fAvgTime = fAvgTime * 0.99f + (float)(GetTickDiff(uCalcStart, uCalcEnd)) * 0.01f;
 			}
 		}
@@ -176,6 +179,7 @@ bool Application::MessagePump()
 
 void Application::Shut()
 {
+	Time::Shut();
 	OnShut();
 }
 
