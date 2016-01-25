@@ -7,11 +7,13 @@
 
 #define PLATFORM_PC
 
+#ifdef PLATFORM_PC
 #define VC_EXTRALEAN
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 
 #include <Windows.h>
+#endif
 #include "SDL2/SDL.h"
 #undef main
 
@@ -21,6 +23,9 @@
 #include <limits.h>
 #include <direct.h>
 
+#include <tuple>
+
+#ifdef PLATFORM_PC
 #include <d2d1_2.h>
 #include <d2d1_2helper.h>
 #include <dwrite.h>
@@ -29,6 +34,7 @@
 
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib, "d2d1")
+#endif
 
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "SDL2main.lib")

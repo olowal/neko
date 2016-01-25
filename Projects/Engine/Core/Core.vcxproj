@@ -158,8 +158,10 @@
     <ClInclude Include="StringCRC.h" />
     <ClInclude Include="StringUtil.h" />
     <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="_win\FileSystem.h" />
+    <ClInclude Include="_win\Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IMG_tga.cpp" />
@@ -169,6 +171,7 @@
     <ClCompile Include="StringCRC.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="_win\FileSystem.cpp" />
+    <ClCompile Include="_win\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ThirdParty\Lua\Lua.vcxproj">

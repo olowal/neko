@@ -14,6 +14,9 @@
     <ClCompile Include="IMG_tga.cpp" />
     <ClCompile Include="ResourceSerializer.cpp" />
     <ClCompile Include="LuaMgr.cpp" />
+    <ClCompile Include="_win\Time.cpp">
+      <Filter>_win</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h" />
@@ -46,6 +49,10 @@
     <ClInclude Include="ResourceSerializer.h" />
     <ClInclude Include="LuaMgr.h" />
     <ClInclude Include="StringUtil.h" />
+    <ClInclude Include="_win\Time.h">
+      <Filter>_win</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Containers">
