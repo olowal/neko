@@ -6,6 +6,7 @@
 #include "Engine/Framework/ComponentManager.h"
 #include "Engine/Framework/GameObject.h"
 #include "Engine/Graphics/Window.h"
+#include "Engine/Core/StringUtil.h"
 
 using namespace luabridge;
 
@@ -79,9 +80,11 @@ bool Application::Init(const char* pzTitle, int iW, int iH, int iX, int iY)
 		char sFullPath[uMaxLenght];
 		sFullPath[0] = '\0';
 
-		SDL_strlcat(sFullPath, sFolderName, uMaxLenght);
-		SDL_strlcat(sFullPath, sGameName, uMaxLenght);
-		SDL_strlcat(sFullPath, sFileExtension, uMaxLenght);
+		uint32 uLength = 0;
+
+		uLength = str::Copy(sFullPath, sFolderName);
+		uLength = str::Concatenate(sFullPath, sGameName, uLength);
+		uLength = str::Concatenate(sFullPath, sFileExtension, uLength);
 
 		m_lua.LoadFiles(sFullPath);
 
