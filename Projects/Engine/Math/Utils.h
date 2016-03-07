@@ -20,6 +20,10 @@ static const float DEGREE = 360.0f;
 static const float DEGREEHALF = 180.0f;
 static const float DEGREEQUATER = 90.0f;
 
+// in game values are counted from max positive to min negative so we can set simple limitations on specific angles starting from zero
+static const float DEGREEMAX = 180.0f;
+static const float DEGREEMIN = -180.0f;
+
 static const float DEG2RAD = ((PI * 2.0f) / DEGREE);
 static const float RAD2DEG = (DEGREE / (PI * 2.0f));
 
@@ -65,18 +69,18 @@ static float Lerp(float p_fFrom,float p_fTo,float p_fT)
 	return (p_fFrom*(1.0f-p_fT))+(p_fTo*p_fT);
 }
 
-//	Wraps around 360 and zero
+//	Wraps around DEGREEMAX DEGREEMIN
 static float RotateAngle(float fAngle, float fValue)
 {
 	float fV = fAngle + fValue;
 
-	if(fV > DEGREE)
+	if(fV > DEGREEMAX)
 	{
-		return fV - DEGREE;
+		fV = DEGREEMIN + (fV - DEGREEMAX);
 	}
-	else if(fV < 0.0f)
+	else if(fV < DEGREEMIN)
 	{
-		return DEGREE + fV;
+		fV = DEGREEMAX + (fV + DEGREEMIN);
 	}
 
 	return fV;
@@ -92,8 +96,7 @@ static float Rad2Deg(float fRad)
 	return fRad * RAD2DEG;
 }
 
-void Register(lua_State* pL);
+static void Register(lua_State* pL);
 
 }	//	namespace math
-
 }	//	namespace neko
