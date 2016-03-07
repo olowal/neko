@@ -96,7 +96,7 @@ static float Rad2Deg(float fRad)
 	return fRad * RAD2DEG;
 }
 
-static void Register(lua_State* pL);
+void Register(lua_State* pL);
 
 }	//	namespace math
 }	//	namespace neko
