@@ -5,6 +5,7 @@
 
 #pragma once
 #include "Engine/Common/Common.h"
+#include "Engine/Math/Vec2.h"
 typedef struct lua_State lua_State;
 namespace neko
 {
@@ -56,6 +57,14 @@ const CObj& Clamp(const CObj& xV,const CObj& xMin, const CObj& xMax)
 	{return xV;}
 };
 
+template <typename CObj>
+CObj Sign(const CObj xV)
+{
+	if(xV < 0.0f) { return -1.0f }
+	else if(xV > 0.0f) { return 1.0f }
+	return 1.0f;
+}
+
 template<typename CObj> 
 void Swap(CObj& xObj1, CObj& xObj2) 
 {
@@ -70,7 +79,7 @@ static float Lerp(float p_fFrom,float p_fTo,float p_fT)
 }
 
 //	Wraps around DEGREEMAX DEGREEMIN
-static float RotateAngle(float fAngle, float fValue)
+static float RotateAngle(const float fAngle, const float fValue)
 {
 	float fV = fAngle + fValue;
 
@@ -86,14 +95,27 @@ static float RotateAngle(float fAngle, float fValue)
 	return fV;
 }
 
-static float Deg2Rad(float fDeg)
+static float Deg2Rad(const float fDeg)
 {
 	return fDeg * DEG2RAD;
 }
 
-static float Rad2Deg(float fRad)
+static float Rad2Deg(const float fRad)
 {
 	return fRad * RAD2DEG;
+}
+
+static Vec2 AngleToDirection(const float fAngle)
+{
+	float fX = cosf(fAngle) * RAD2DEG;
+	float fY = sinf(fAngle) * RAD2DEG;
+	return Vec2(fX, fY);
+}
+
+static void AngleToDirection(const float fAngle, float& fX, float& fY)
+{
+	fX = cosf(fAngle) * RAD2DEG;
+	fY = sinf(fAngle) * RAD2DEG;
 }
 
 void Register(lua_State* pL);
