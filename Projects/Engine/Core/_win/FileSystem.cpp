@@ -6,6 +6,7 @@ namespace neko
 
 FileSystem::FileData::FileData(uint32 uSize, uint32 uMaxPath)
 {
+	m_uCount = 0;
 	m_uSize = uSize;
 	m_uMaxPath = uMaxPath;
 	m_ppFiles = new char*[uSize];
