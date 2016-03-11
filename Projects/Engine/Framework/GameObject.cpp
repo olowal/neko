@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "ComponentManager.h"
 #include "Engine/Framework/ScriptComponent.h"
+#include "Engine/Framework/GameObjectID.h"
 
 #include "ThirdParty/Lua/lua.hpp"
 #include "ThirdParty/luabridge/LuaBridge.h"
@@ -28,6 +29,17 @@ void GameObject::SetChanged()
 		ms_componentsToCheck.AddToLast(this);
 		m_bChanged = true;
 	}
+}
+
+GameObject* GameObject::Alloc()
+{
+	GameObject* pObj = ms_pool.Alloc();
+	if(pObj)
+	{
+		GameObjectID* gameObjectID = Component<GameObjectID>::Create(pObj);
+		gameObjectID->gameObject = pObj;
+	}
+	return NULL;
 }
 
 void GameObject::Free(GameObject* pObj)

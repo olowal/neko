@@ -20,7 +20,7 @@ public:
 	static const char* ScriptHandle;
 	static const uint32 NumGameObjects;
 
-	static GameObject* Alloc() { return ms_pool.Alloc(); }
+	static GameObject* Alloc();
 	static void Free(GameObject* pObj);
 
 	static bool Create(lua_State* pL, const char* szHandle);
