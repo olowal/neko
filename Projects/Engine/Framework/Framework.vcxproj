@@ -153,6 +153,7 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectID.h" />
     <ClInclude Include="GFXDeviceComponent.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="ScriptComponent.h" />
