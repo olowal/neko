@@ -21,6 +21,7 @@ public:
 	static const uint32 NumGameObjects;
 
 	static GameObject* Alloc();
+	static GameObject* Alloc(GameObject* pParent);
 	static void Free(GameObject* pObj);
 
 	static bool Create(lua_State* pL, const char* szHandle);
@@ -38,7 +39,7 @@ private:
 	static ObjectPool<GameObject, false> ms_pool;
 	static LinkedList<GameObject> ms_componentsToCheck;
 	static LinkedList<GameObject> ms_getComponents;
-
+	LinkedList<GameObject> m_children;
 	GameObject* m_pParent;
 	uint32 m_uIndex;
 	bool m_bChanged;

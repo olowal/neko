@@ -42,6 +42,17 @@ GameObject* GameObject::Alloc()
 	return NULL;
 }
 
+GameObject* GameObject::Alloc(GameObject* pParent)
+{
+	GameObject* pObj = GameObject::Alloc();
+	if(pObj)
+	{
+		pObj->m_pParent = pParent;
+		pParent->m_children.AddToLast(pObj);
+	}
+	return NULL;
+}
+
 void GameObject::Free(GameObject* pObj)
 {
 	printf("[GameObject::Free] Not yet implemented\n");
