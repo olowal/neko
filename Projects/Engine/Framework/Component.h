@@ -25,6 +25,13 @@ public:
 		return pC;
 	}
 
+	static ComponentType* GetComponent(ComponentType** ppC, GameObject* pObj)
+	{
+		const uint32 uIndex = pObj->GetIndex();
+		(*ppC) = ms_allocations[uIndex] ? &ms_components[uIndex] : NULL;
+		return ((*ppC) != NULL);
+	}
+
 	static ComponentType* Create(GameObject* pObj)
 	{
 		pObj->SetChanged();
