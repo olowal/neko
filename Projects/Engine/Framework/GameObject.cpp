@@ -16,6 +16,11 @@ ObjectPool<GameObject, false> GameObject::ms_pool(GameObject::NumGameObjects);
 LinkedList<GameObject> GameObject::ms_getComponents;
 LinkedList<GameObject> GameObject::ms_componentsToCheck;
 
+GameObject::GameObject()
+{
+	m_pParent = NULL;
+}
+
 void GameObject::SetChanged()
 {
 	if(!m_bChanged)

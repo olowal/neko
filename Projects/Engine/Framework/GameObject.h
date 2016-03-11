@@ -15,6 +15,8 @@ namespace neko
 class GameObject
 {
 public:
+	GameObject();
+
 	static const char* ScriptHandle;
 	static const uint32 NumGameObjects;
 
@@ -37,6 +39,7 @@ private:
 	static LinkedList<GameObject> ms_componentsToCheck;
 	static LinkedList<GameObject> ms_getComponents;
 
+	GameObject* m_pParent;
 	uint32 m_uIndex;
 	bool m_bChanged;
 };
