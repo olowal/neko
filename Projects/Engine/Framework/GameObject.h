@@ -35,7 +35,6 @@ public:
 	static void Register(lua_State* pL);
 
 private:
-	static void SetIndex(GameObject* pObj);
 	static ObjectPool<GameObject, false> ms_pool;
 	static LinkedList<GameObject> ms_componentsToCheck;
 	static LinkedList<GameObject> ms_getComponents;
