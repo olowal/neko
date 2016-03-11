@@ -44,6 +44,9 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="GFXDeviceComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
