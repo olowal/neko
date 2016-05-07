@@ -15,11 +15,11 @@ static bool AllocTankPropertyComponent(neko::GameObject* pGameObject, luabridge:
 {
 	if(pGameObject)
 	{
-		TankPropertyComponent* pC = Component<TankPropertyComponent>::Create(pGameObject);
+		TankPropertyComponent* pC = neko::Component<TankPropertyComponent>::Create(pGameObject);
 		if(pC)
 		{
-			if(data["movementSpeed"] && data["movementSpeed"].isNumber()) { pC->movementSpeed = data["movementSpeed"].cast<float>(); }
-			if(data["rotationSpeed"] && data["rotationSpeed"].isNumber()) { pC->rotationSpeed = data["rotationSpeed"].cast<float>(); }
+			if(data["movementSpeed"].isNumber()) { pC->movementSpeed = data["movementSpeed"].cast<float>(); }
+			if(data["rotationSpeed"].isNumber()) { pC->rotationSpeed = data["rotationSpeed"].cast<float>(); }
 			return true;
 		}
 	}

@@ -34,7 +34,7 @@ public:
 
 	static ComponentType* GetComponentFromParent(ComponentType** ppC, const GameObject* pObj)
 	{
-		const GameObject pParent = pObj->GetParent();
+		const GameObject* pParent = pObj->GetParent();
 		ComponentType* pC = NULL;
 		if(pParent)
 		{
@@ -47,7 +47,7 @@ public:
 	//	This thing digs deep
 	static ComponentType* GetComponentFromParentRecursive(ComponentType** ppC, const GameObject* pObj)
 	{
-		const GameObject pParent = pObj->GetParent();
+		const GameObject* pParent = pObj->GetParent();
 		ComponentType* pC = NULL;
 		if(pParent)
 		{
@@ -55,7 +55,7 @@ public:
 			pC = (*ppC) = ms_allocations[uIndex] ? &ms_components[uIndex] : NULL;
 			if(pC == NULL)
 			{
-				pC = GetComponentFromParentRecursive<ComponentType>(ppC, pParent);
+				pC = GetComponentFromParentRecursive(ppC, pParent);
 			}
 		}
 		return pC;

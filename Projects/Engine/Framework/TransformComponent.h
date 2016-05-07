@@ -78,11 +78,11 @@ bool AllocTransformComponent(GameObject* pGameObject, luabridge::LuaRef data)
 		TransformComponent* pC = Component<TransformComponent>::Create(pGameObject);
 		if(pC)
 		{
-			if(data["x"] && data["x"].isNumber()) {		pC->vPos.m_fX	=	data["x"].cast<float>(); }
-			if(data["y"] && data["y"].isNumber()) {		pC->vPos.m_fY	=	data["y"].cast<float>(); }
-			if(data["w"] && data["w"].isNumber()) {		pC->vScale.m_fX	=	data["w"].cast<float>(); }
-			if(data["h"] && data["h"].isNumber()) {		pC->vScale.m_fY	=	data["h"].cast<float>(); }
-			if(data["angle"] && data["angle"].isNumber()) { pC->fAngle	=	data["angle"].cast<float>(); }
+			if(data["x"].isNumber()) {		pC->vPos.m_fX	=	data["x"].cast<float>(); }
+			if(data["y"].isNumber()) {		pC->vPos.m_fY	=	data["y"].cast<float>(); }
+			if(data["w"].isNumber()) {		pC->vScale.m_fX	=	data["w"].cast<float>(); }
+			if(data["h"].isNumber()) {		pC->vScale.m_fY	=	data["h"].cast<float>(); }
+			if(data["angle"].isNumber()) { pC->fAngle	=	data["angle"].cast<float>(); }
 
 			return true;
 		}

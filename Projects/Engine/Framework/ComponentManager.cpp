@@ -4,6 +4,7 @@
 #include "TransformComponent.h"
 #include "ScriptComponent.h"
 #include "ChildComponent.h"
+#include "GFXDeviceComponent.h"
 #include "Component.h"
 #include "SpriteRenderSystem.h"
 #include "ScriptSystem.h"
@@ -25,6 +26,7 @@ void ComponentManager::Init(lua_State* pL)
 	Component<ChildComponent>::Init();
 	Component<SpriteComponent>::Init();
 	Component<ScriptComponent>::Init();
+	Component<GFXDeviceComponent>::Init();
 
 	Component<TransformComponent>::RegisterLua(pL);
 	Component<ChildComponent>::RegisterLua(pL);
@@ -58,6 +60,7 @@ void ComponentManager::GetComponents(GameObject* pObj)
 
 void ComponentManager::Free(GameObject* pObj)
 {
+	Component<GFXDeviceComponent>::Free(pObj);
 	Component<TransformComponent>::Free(pObj);
 	Component<ChildComponent>::Free(pObj);
 	Component<SpriteComponent>::Free(pObj);

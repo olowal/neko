@@ -41,7 +41,7 @@ bool AllocSpriteComponent(GameObject* pGameObject, luabridge::LuaRef data, const
 		SpriteComponent* pC = Component<SpriteComponent>::Create(pGameObject);
 		if(pC)
 		{
-			if(data["filename"] && data["filename"].isString())
+			if(data["filename"].isString())
 			{
 				const char* sFilename = data["filename"].cast<const char*>();
 				
@@ -52,10 +52,10 @@ bool AllocSpriteComponent(GameObject* pGameObject, luabridge::LuaRef data, const
 				int iW = 0;
 				int iH = 0;
 
-				if(data["x"] && data["x"].isNumber()) { iX=data["x"].cast<int>(); }
-				if(data["y"] && data["y"].isNumber()) { iY=data["y"].cast<int>(); }
-				if(data["w"] && data["w"].isNumber()) { iW=data["w"].cast<int>(); }
-				if(data["h"] && data["h"].isNumber()) { iH=data["h"].cast<int>(); }
+				if(data["x"].isNumber()) { iX=data["x"].cast<int>(); }
+				if(data["y"].isNumber()) { iY=data["y"].cast<int>(); }
+				if(data["w"].isNumber()) { iW=data["w"].cast<int>(); }
+				if(data["h"].isNumber()) { iH=data["h"].cast<int>(); }
 
 				return true;
 			}

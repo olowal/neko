@@ -27,7 +27,7 @@ public:
 	static bool Create(lua_State* pL, const char* szHandle);
 
 	uint32 GetIndex() const { return m_uIndex; }
-	const GameObject* GetParent() { return m_pParent; }
+	const GameObject* GetParent() const { return m_pParent; }
 
 	void SetChanged();
 	static void UpdateComponents();

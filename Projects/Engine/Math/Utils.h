@@ -57,12 +57,17 @@ const CObj& Clamp(const CObj& xV,const CObj& xMin, const CObj& xMax)
 	{return xV;}
 };
 
-template <typename CObj>
-CObj Sign(const CObj xV)
+static float Sign(const float xV)
 {
-	if(xV < 0.0f) { return -1.0f }
-	else if(xV > 0.0f) { return 1.0f }
+	if(xV < 0.0f) { return -1.0f; }
+	else if(xV > 0.0f) { return 1.0f; }
 	return 1.0f;
+}
+
+static int Sign(const int xV)
+{
+	if(xV < 0) { return -1; } else if(xV > 0) { return 1; }
+	return 1;
 }
 
 template<typename CObj> 
