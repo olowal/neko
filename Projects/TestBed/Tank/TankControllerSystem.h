@@ -1,26 +1,26 @@
 /****************************************************************************
-//	Filename: ChildSystem.h
-//	Description: Sets the transform component relative to the parent.
+//	Filename: TankControllerSystem.h
+//	Description: Makes a tank move
 *****************************************************************************/
 #pragma once
 #include "Engine/Common/Common.h"
 namespace neko
 {
-
 class GameObject;
-struct ChildComponent;
 struct TransformComponent;
-class ChildSystem
+}	//	namespace neko
+struct TankControllerComponent;
+struct TankPropertyComponent;
+class TankControllerSystem
 {
 public:
 	struct Components
 	{
-		TransformComponent* pTrans;
-		TransformComponent* pParentTransform;	//	Get from parent
+		TankControllerComponent* pCtrl;
+		TankPropertyComponent* pProp;
+		neko::TransformComponent* pTrans;
 	};
 
-	static bool GetComponents(GameObject* pObj, Components* pComp);
+	static bool GetComponents(neko::GameObject* pObj, Components* pComp);
 	static void Run(Components* pComp, const float fDelta);
 };
-
-}	//	namespace neko

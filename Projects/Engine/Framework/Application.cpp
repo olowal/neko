@@ -8,6 +8,7 @@
 #include "Engine/Graphics/Window.h"
 #include "Engine/Core/StringUtil.h"
 #include "Engine/Core/Time.h"
+#include "Engine/Framework/GFXDeviceComponent.h"
 
 using namespace luabridge;
 
@@ -23,7 +24,7 @@ Application::Application()
 }
 Application::~Application(){}
 
-bool Application::Init(const char* pzTitle, int iW, int iH, int iX, int iY)
+bool Application::Init()
 {
 		//	Set the application path to the executable path
 		// In the case of development, we set the base to the folder Data
@@ -66,7 +67,9 @@ bool Application::Init(const char* pzTitle, int iW, int iH, int iX, int iY)
 	GFXDevice::Register(pL);
 	neko::math::Register(pL);
 
-	m_componentManager.Init(pL);
+	m_pComponentManager->Init(pL);
+	GameObject* pRoot = GameObject::Init();
+	ASSERT(pRoot != NULL);
 
 	m_lua.LoadFiles("Scripts/");
 
@@ -102,6 +105,13 @@ bool Application::Init(const char* pzTitle, int iW, int iH, int iX, int iY)
 			{
 				m_pDevice = device.cast<GFXDevice*>();
 				ASSERT(m_pDevice != NULL);
+				GFXDeviceComponent* pGFX = Component<GFXDeviceComponent>::Create(pRoot);
+				ASSERT(pGFX != NULL);
+				pGFX->pDevice = m_pDevice;
+			}
+			else
+			{
+				return false;
 			}
 
 			game["app"] = this;
@@ -113,7 +123,6 @@ bool Application::Init(const char* pzTitle, int iW, int iH, int iX, int iY)
 			start();
 		}
 	}
-	
 
 	return true;
 }
@@ -199,7 +208,7 @@ void Application::DoFrame(const float fDt)
 {
 	m_inputManager.Update();
 	GameObject::UpdateComponents();
-	m_componentManager.Run(fDt);
+	m_pComponentManager->Run(fDt);
 }
 
 bool Application::CreateGameObject(const char* szHandle)
@@ -214,7 +223,7 @@ void Application::DestroyGameObject(luabridge::LuaRef obj)
 	
 	if(pObj != NULL)
 	{
-		m_componentManager.Free(pObj);
+		m_pComponentManager->Free(pObj);
 	}
 }
 

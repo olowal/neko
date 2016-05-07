@@ -71,16 +71,24 @@ void GetScale(TransformComponent* pC, float& fX, float& fY)
 	fY = vScale.m_fY;
 }
 
-TransformComponent* AllocTransformComponent(luabridge::LuaRef luaRef)
+bool AllocTransformComponent(GameObject* pGameObject, luabridge::LuaRef data)
 {
-	GameObject* pObj = luaRef[GameObject::ScriptHandle].cast<GameObject*>();
-	if(pObj)
+	if(pGameObject)
 	{
-		TransformComponent* pC = Component<TransformComponent>::Create(pObj);
-		return pC;
+		TransformComponent* pC = Component<TransformComponent>::Create(pGameObject);
+		if(pC)
+		{
+			if(data["x"] && data["x"].isNumber()) {		pC->vPos.m_fX	=	data["x"].cast<float>(); }
+			if(data["y"] && data["y"].isNumber()) {		pC->vPos.m_fY	=	data["y"].cast<float>(); }
+			if(data["w"] && data["w"].isNumber()) {		pC->vScale.m_fX	=	data["w"].cast<float>(); }
+			if(data["h"] && data["h"].isNumber()) {		pC->vScale.m_fY	=	data["h"].cast<float>(); }
+			if(data["angle"] && data["angle"].isNumber()) { pC->fAngle	=	data["angle"].cast<float>(); }
+
+			return true;
+		}
 	}
 
-	return NULL;
+	return false;
 }
 
 }
@@ -89,22 +97,12 @@ template <>
 void Component<TransformComponent>::RegisterLua(lua_State* pL)
 {
 	using namespace luabridge;
-	getGlobalNamespace(pL)
-		.beginClass<TransformComponent>("TransformComponent")
-		.endClass();
 
 	getGlobalNamespace(pL)
+		.beginNamespace("Component")
 		.beginNamespace("Transform")
-		.addFunction("Translate", Translate)
-		.addFunction("SetPosition", SetPosition)
-		.addFunction("GetPosition", GetPosition)
-		.addFunction("Rotate", Rotate)
-		.addFunction("SetAngle", SetAngle)
-		.addFunction("GetAngle", GetAngle)
-		.addFunction("Scale", Scale)
-		.addFunction("SetScale", SetScale)
-		.addFunction("GetScale", GetScale)
 		.addFunction("Alloc", AllocTransformComponent)
+		.endNamespace()
 		.endNamespace();
 }
 

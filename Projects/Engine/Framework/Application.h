@@ -19,7 +19,7 @@ public:
 	Application();
 	virtual ~Application();
 
-	bool Init(const char* pzTitle, int iW, int iH, int iX = SDL_WINDOWPOS_UNDEFINED, int iY = SDL_WINDOWPOS_UNDEFINED);
+	bool Init();
 	void Shut();
 	void Run();
 
@@ -32,6 +32,9 @@ public:
 	void DestroyGameObject(luabridge::LuaRef obj);
 
 protected:
+	template <class ComponentManagerType>
+	void _Init() { m_pComponentManager = new ComponentManagerType(); }
+
 	virtual bool OnInit(){ return true; }
 	virtual void OnShut(){}
 	virtual void DoFrame(const float fDt);
@@ -43,7 +46,7 @@ protected:
 	bool m_bShouldQuit;
 private:
 	bool MessagePump();
-	ComponentManager m_componentManager;
+	ComponentManager* m_pComponentManager;
 	InputManager m_inputManager;
 	LuaMgr m_lua;
 	uint32 m_uFrameIndex;

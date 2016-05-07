@@ -18,10 +18,10 @@ public:
 	D2DApp();
 	virtual ~D2DApp();
 
-	//bool Init(HINSTANCE hInstance);
+	bool Init();
 
 protected:
-	virtual void DoFrame();
+	//virtual void DoFrame();
 	virtual bool OnInit();
 	virtual void OnShut();
 private:

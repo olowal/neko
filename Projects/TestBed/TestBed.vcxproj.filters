@@ -3,8 +3,46 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="D2DApp.cpp" />
+    <ClCompile Include="Tank\TankInputSystem.cpp">
+      <Filter>Tank\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank\TankControllerSystem.cpp">
+      <Filter>Tank\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank\TankComponentManager.cpp">
+      <Filter>Tank</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D2DApp.h" />
+    <ClInclude Include="Tank\TankControllerComponent.h">
+      <Filter>Tank\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank\TankInputComponent.h">
+      <Filter>Tank\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank\TankInputSystem.h">
+      <Filter>Tank\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank\TankControllerSystem.h">
+      <Filter>Tank\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank\TankPropertyComponent.h">
+      <Filter>Tank\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank\TankComponentManager.h">
+      <Filter>Tank</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Tank">
+      <UniqueIdentifier>{30f98dff-0b7c-4e58-bdc3-41279b1a4590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tank\Components">
+      <UniqueIdentifier>{d3f07909-4875-417b-88f9-235e5c981126}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tank\Systems">
+      <UniqueIdentifier>{70e9e612-f942-4ffb-a02d-2dfe9cdb7b55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

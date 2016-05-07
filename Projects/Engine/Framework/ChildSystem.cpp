@@ -9,16 +9,18 @@ namespace neko
 
 bool ChildSystem::GetComponents(GameObject* pObj, Components* pComp)
 {
-	pComp->pTrans = Component<TransformComponent>::GetComponent(pObj);
-	pComp->pChild = Component<ChildComponent>::GetComponent(pObj);
-
-	return (pComp->pChild != NULL && pComp->pTrans != NULL);
+	if(Component<TransformComponent>::GetComponent(&pComp->pTrans, pObj)
+		&& Component<TransformComponent>::GetComponentFromParent(&pComp->pParentTransform, pObj))
+	{
+		return true;
+	}
+	return false;
 }
 
 void ChildSystem::Run(Components* pComp, const float fDelta)
 {
-	const float fParentAngle = pComp->pChild->pParentTrans->fAngle;
-	const Vec2& vParentPos = pComp->pChild->pParentTrans->vPos;
+	const float fParentAngle = pComp->pParentTransform->fAngle;
+	const Vec2& vParentPos = pComp->pParentTransform->vPos;
 
 	const float fAngle = pComp->pTrans->fAngle;
 	const Vec2& vPos = pComp->pTrans->vPos;

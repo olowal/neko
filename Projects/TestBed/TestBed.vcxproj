@@ -164,6 +164,9 @@
   <ItemGroup>
     <ClCompile Include="D2DApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Tank\TankComponentManager.cpp" />
+    <ClCompile Include="Tank\TankControllerSystem.cpp" />
+    <ClCompile Include="Tank\TankInputSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Common\Common.vcxproj">
@@ -196,6 +199,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D2DApp.h" />
+    <ClInclude Include="Tank\TankComponentManager.h" />
+    <ClInclude Include="Tank\TankControllerComponent.h" />
+    <ClInclude Include="Tank\TankControllerSystem.h" />
+    <ClInclude Include="Tank\TankInputComponent.h" />
+    <ClInclude Include="Tank\TankInputSystem.h" />
+    <ClInclude Include="Tank\TankPropertyComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

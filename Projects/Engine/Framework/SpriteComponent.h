@@ -34,17 +34,35 @@ void LoadTexture(SpriteComponent* pC, const char* szFilename)
 	pC->pTexture = pC->pDevice->LoadTextureFromBinary(szFilename);
 }
 
-SpriteComponent* AllocSpriteComponent(luabridge::LuaRef luaRef)
-{
-	GameObject* pObj = luaRef[GameObject::ScriptHandle].cast<GameObject*>();
-	
-	if(pObj)
+bool AllocSpriteComponent(GameObject* pGameObject, luabridge::LuaRef data, const GFXDevice* pDevice)
+{	
+	if(pGameObject)
 	{
-		SpriteComponent* pC = Component<SpriteComponent>::Create(pObj);
-		return pC;
+		SpriteComponent* pC = Component<SpriteComponent>::Create(pGameObject);
+		if(pC)
+		{
+			if(data["filename"] && data["filename"].isString())
+			{
+				const char* sFilename = data["filename"].cast<const char*>();
+				
+				pC->pTexture = pDevice->LoadTextureFromBinary(sFilename);
+
+				int iX = 0;
+				int iY = 0;
+				int iW = 0;
+				int iH = 0;
+
+				if(data["x"] && data["x"].isNumber()) { iX=data["x"].cast<int>(); }
+				if(data["y"] && data["y"].isNumber()) { iY=data["y"].cast<int>(); }
+				if(data["w"] && data["w"].isNumber()) { iW=data["w"].cast<int>(); }
+				if(data["h"] && data["h"].isNumber()) { iH=data["h"].cast<int>(); }
+
+				return true;
+			}
+		}
 	}
 
-	return NULL;
+	return false;
 }
 
 }
@@ -54,14 +72,10 @@ void Component<SpriteComponent>::RegisterLua(lua_State* pL)
 {
 	using namespace luabridge;
 	getGlobalNamespace(pL)
-		.beginClass<SpriteComponent>("SpriteComponent")
-		.endClass();
-
-	getGlobalNamespace(pL)
+		.beginNamespace("Components")
 		.beginNamespace("Sprite")
-		.addFunction("LoadTexture", LoadTexture)
-		.addFunction("SetDimension", SetDimension)
 		.addFunction("Alloc", AllocSpriteComponent)
+		.endNamespace()
 		.endNamespace();
 }
 

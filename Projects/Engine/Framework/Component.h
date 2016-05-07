@@ -18,18 +18,47 @@ template <class ComponentType>
 class Component
 {
 public:
-	static ComponentType* GetComponent(GameObject* pObj)
+	static ComponentType* GetComponent(const GameObject* pObj)
 	{
 		const uint32 uIndex = pObj->GetIndex();
 		ComponentType* pC = ms_allocations[uIndex] ? &ms_components[uIndex] : NULL;
 		return pC;
 	}
 
-	static ComponentType* GetComponent(ComponentType** ppC, GameObject* pObj)
+	static ComponentType* GetComponent(ComponentType** ppC, const GameObject* pObj)
 	{
 		const uint32 uIndex = pObj->GetIndex();
-		(*ppC) = ms_allocations[uIndex] ? &ms_components[uIndex] : NULL;
-		return ((*ppC) != NULL);
+		ComponentType* pC = (*ppC) = ms_allocations[uIndex] ? &ms_components[uIndex] : NULL;
+		return pC;
+	}
+
+	static ComponentType* GetComponentFromParent(ComponentType** ppC, const GameObject* pObj)
+	{
+		const GameObject pParent = pObj->GetParent();
+		ComponentType* pC = NULL;
+		if(pParent)
+		{
+			const uint32 uIndex = pParent->GetIndex();
+			pC = (*ppC) = ms_allocations[uIndex] ? &ms_components[uIndex] : NULL;
+		}
+		return pC;
+	}
+
+	//	This thing digs deep
+	static ComponentType* GetComponentFromParentRecursive(ComponentType** ppC, const GameObject* pObj)
+	{
+		const GameObject pParent = pObj->GetParent();
+		ComponentType* pC = NULL;
+		if(pParent)
+		{
+			const uint32 uIndex = pParent->GetIndex();
+			pC = (*ppC) = ms_allocations[uIndex] ? &ms_components[uIndex] : NULL;
+			if(pC == NULL)
+			{
+				pC = GetComponentFromParentRecursive<ComponentType>(ppC, pParent);
+			}
+		}
+		return pC;
 	}
 
 	static ComponentType* Create(GameObject* pObj)

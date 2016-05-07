@@ -1,26 +1,23 @@
 /****************************************************************************
-//	Filename: ChildSystem.h
-//	Description: Sets the transform component relative to the parent.
+//	Filename: RotateSystem2D.h
+//	Description: Rotate a transform within specified angles
 *****************************************************************************/
 #pragma once
 #include "Engine/Common/Common.h"
 namespace neko
 {
-
-class GameObject;
-struct ChildComponent;
 struct TransformComponent;
-class ChildSystem
+struct RotatorComponent2D;
+class GameObject;
+class RotateSystem2D
 {
-public:
 	struct Components
 	{
 		TransformComponent* pTrans;
-		TransformComponent* pParentTransform;	//	Get from parent
+		RotatorComponent2D* pRotator;
 	};
 
 	static bool GetComponents(GameObject* pObj, Components* pComp);
 	static void Run(Components* pComp, const float fDelta);
 };
-
 }	//	namespace neko

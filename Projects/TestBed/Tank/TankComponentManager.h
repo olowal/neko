@@ -1,26 +1,18 @@
 /****************************************************************************
-//	Filename: ComponentManager.h
-//	Description: 
+//	Filename: TankComponentManger.h
+//	Description: Inherits from ComponentManager, adds initialization and runs
+//	Systems designed for Tank project.
 *****************************************************************************/
 #pragma once
 #include "Engine/Common/Common.h"
-typedef struct lua_State lua_State;
-namespace neko
+#include "Engine/Framework/ComponentManager.h"
+class TankComponentManager : public neko::ComponentManager
 {
-
-class GameObject;
-class ComponentManager
-{
+	typedef neko::ComponentManager Inherited;
 public:
-	ComponentManager();
-	virtual ~ComponentManager();
-
 	virtual void Init(lua_State* pL);
 	virtual void Shut();
 	virtual void Run(const float fDt);
-	virtual void Free(GameObject* pObj);
+private:
 
-	static void GetComponents(GameObject* pObj);
 };
-
-}	//	namespace neko

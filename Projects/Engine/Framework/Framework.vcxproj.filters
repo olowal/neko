@@ -14,6 +14,9 @@
     <ClCompile Include="ChildSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="RotateSystem2D.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -44,6 +47,12 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="RotatorComponent2D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateSystem2D.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
     <ClInclude Include="GFXDeviceComponent.h">
       <Filter>Components</Filter>
     </ClInclude>

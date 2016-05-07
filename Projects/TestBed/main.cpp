@@ -13,7 +13,7 @@ int WINAPI WinMain(
 int main()
 {
 	D2DApp app;
-	if(!app.Init("TestBed", 800, 600))
+	if(!app.Init())
 	{
 		return (int)-1;
 	}

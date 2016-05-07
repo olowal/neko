@@ -16,13 +16,8 @@ using namespace luabridge;
 namespace neko
 {
 
-static lua_State* s_pL = NULL;
-
 ComponentManager::ComponentManager(){}
-ComponentManager::~ComponentManager()
-{
-	s_pL = NULL;
-}
+ComponentManager::~ComponentManager(){}
 
 void ComponentManager::Init(lua_State* pL)
 {

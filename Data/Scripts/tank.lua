@@ -1,6 +1,12 @@
 --	tank.lua
 
 player = function()
+
+local gameObject = GameObject.Alloc()
+local comp = Components
+
+comp.Sprite.Alloc(gameObject, {filename = "tank", x=0,y=0,w=120,h=120}, Game.device)
+
 local obj = 
 	{
 		sprite = nil,

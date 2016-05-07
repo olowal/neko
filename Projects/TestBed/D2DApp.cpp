@@ -2,7 +2,7 @@
 
 #include "D2DApp.h"
 #include "Engine/Math/Utils.h"
-#include "Engine/Framework/ComponentManager.h"
+#include "Tank/TankComponentManager.h"
 #include "Engine/Framework/Component.h"
 #include "Engine/Framework/SpriteComponent.h"
 #include "Engine/Framework/TransformComponent.h"
@@ -18,15 +18,21 @@ D2DApp::D2DApp()
 }
 D2DApp::~D2DApp(){}
 
+bool D2DApp::Init()
+{
+	_Init<TankComponentManager>();
+	return Inherited::Init();
+}
+
 bool D2DApp::OnInit()
 {
-	ResourceSerializer::SerializeToBinary("Textures/", NULL);
+	//ResourceSerializer::SerializeToBinary("Textures/", NULL);
 	//SDL_Texture* pT = m_device.LoadTextureFromBinary("mario_sprite");
 
 	return true;
 }
 
-
+/*
 void D2DApp::DoFrame()
 {
 	
@@ -39,7 +45,7 @@ void D2DApp::DoFrame()
 	m_pDevice->SetColor(clr);
 	m_pDevice->DrawLine(20.0f, 30.0f, 60.0f, 60.0f);
 	Inherited::DoFrame(0.0f);
-}
+}*/
 
 void D2DApp::OnShut()
 {

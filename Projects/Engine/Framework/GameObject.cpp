@@ -16,6 +16,7 @@ const uint32 GameObject::NumGameObjects = 128;
 ObjectPool<GameObject, false> GameObject::ms_pool(GameObject::NumGameObjects);
 LinkedList<GameObject> GameObject::ms_getComponents;
 LinkedList<GameObject> GameObject::ms_componentsToCheck;
+GameObject* GameObject::ms_pRoot = NULL;
 
 GameObject::GameObject()
 {
@@ -28,23 +29,33 @@ void GameObject::SetChanged()
 	{
 		ms_componentsToCheck.AddToLast(this);
 		m_bChanged = true;
+		for(LinkedList<GameObject>::Iterator it = m_children.Begin(); !it.IsEnd(); ++it)
+		{
+			(*it)->SetChanged();
+		}
 	}
 }
 
-GameObject* GameObject::Alloc()
+GameObject* GameObject::Alloc(bool bAddToRoot)
 {
 	GameObject* pObj = ms_pool.Alloc();
 	if(pObj)
 	{
 		GameObjectID* gameObjectID = Component<GameObjectID>::Create(pObj);
 		gameObjectID->gameObject = pObj;
+		if(bAddToRoot)
+		{
+			pObj->m_pParent = ms_pRoot;
+			ms_pRoot->m_children.AddToLast(pObj);
+		}
+
 	}
 	return NULL;
 }
 
 GameObject* GameObject::Alloc(GameObject* pParent)
 {
-	GameObject* pObj = GameObject::Alloc();
+	GameObject* pObj = GameObject::Alloc(false);
 	if(pObj)
 	{
 		pObj->m_pParent = pParent;
@@ -81,7 +92,7 @@ void GameObject::UpdateComponents()
 	ms_getComponents.Clear();
 }
 
-void GameObject::Init()
+GameObject* GameObject::Init()
 {
 	const uint32 uSize = GameObject::NumGameObjects;
 	for(uint32 i = 0; i < uSize; i++)
@@ -90,6 +101,10 @@ void GameObject::Init()
 		obj.m_uIndex = i;
 		obj.m_bChanged = false;
 	}
+
+	ms_pRoot = ms_pool.Alloc();
+	ASSERT(ms_pRoot != NULL);
+	return ms_pRoot;
 }
 
 void GameObject::Register(lua_State* pL)

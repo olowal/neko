@@ -79,8 +79,9 @@ static float Lerp(float p_fFrom,float p_fTo,float p_fT)
 }
 
 //	Wraps around DEGREEMAX DEGREEMIN
-static float RotateAngle(const float fAngle, const float fValue)
+static float RotateAngle(float fAngle, const float fValue)
 {
+	fAngle = fAngle - DEGREEHALF;
 	float fV = fAngle + fValue;
 
 	if(fV > DEGREEMAX)
@@ -91,6 +92,8 @@ static float RotateAngle(const float fAngle, const float fValue)
 	{
 		fV = DEGREEMAX + (fV + DEGREEMIN);
 	}
+
+	fV = fV + DEGREEHALF;
 
 	return fV;
 }

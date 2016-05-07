@@ -10,6 +10,7 @@ namespace neko
 class GameObject;
 struct SpriteComponent;
 struct TransformComponent;
+struct GFXDeviceComponent;
 class SpriteRenderSystem
 {
 public:
@@ -17,6 +18,7 @@ public:
 	{
 		TransformComponent* pTrans;
 		SpriteComponent* pSprite;
+		GFXDeviceComponent* pGFX;
 	};
 
 	static bool GetComponents(GameObject* pObj, Components* pComp);
