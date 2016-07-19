@@ -26,7 +26,7 @@ sint32 neko::Time::GetTickDiff(sint32 iStart, sint32 iEnd)
 		return iEnd - iStart;
 	}
 	
-	sint64 iD = (static_cast<sint64>(2<<32) - iStart);
+	sint64 iD = ((sint64)2<<32) - iStart;
 	iD += static_cast<sint64>(iEnd);
 	return static_cast<sint32>(iD);
 }
