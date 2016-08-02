@@ -9,7 +9,7 @@
 #include "Engine/Framework/Application.h"
 #include "Engine/Scene/Camera.h"
 #include "Engine/Graphics/TextureMgr.h"
-#include "Engine/Core/LuaMgr.h"
+#include "Engine/Core/LuaVM.h"
 
 class D2DApp : public neko::Application
 {

@@ -15,47 +15,40 @@ static const GFXDevice* s_pDevice = NULL;
 
 void GFXDevice::Register(lua_State * pL)
 {
-	using namespace luabridge;
+	/*using namespace luabridge;
 	getGlobalNamespace(pL)
 		.beginClass<GFXDevice>("SDL_Renderer_Device")
 		.endClass();
 	getGlobalNamespace(pL)
 		.beginNamespace("GFXDevice")
 		.addFunction("Create", &GFXDevice::CreateDevice)
-		.endNamespace();
+		.endNamespace();*/
 }
-
+/*
 GFXDevice* GFXDevice::CreateDevice(SDL_Window* pWnd)
 {
-	SDL_Renderer* pRnd = SDL_CreateRenderer(pWnd,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+	SDL_Renderer* pRnd = 
 	ASSERT(pRnd != NULL);
 	GFXDevice* pDevice = new GFXDevice(pRnd);
 	SDL_RenderSetLogicalSize(pRnd,320,240);
 	return pDevice;
 }
-
-const GFXDevice* GFXDevice::GetDevice()
+*/
+GFXDevice::GFXDevice()
 {
-	return s_pDevice;
-}
-
-GFXDevice::GFXDevice(SDL_Renderer* pRnd)
-{
-	m_pRndr = pRnd;
+	m_pRndr = NULL;
 	m_mModel.SetIdentity();
-	s_pDevice = this;
 }
 
 GFXDevice::~GFXDevice()
 {
 	Shut();
-	s_pDevice = NULL;
 }
 
 bool GFXDevice::Init(SDL_Window* pWnd)
 {
 	Shut();
-
+	m_pRndr = SDL_CreateRenderer(pWnd,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
 	return m_pRndr != NULL;
 }
 

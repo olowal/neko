@@ -1,6 +1,6 @@
 /****************************************************************************
-//	Filename: LuaMgr.h
-//	Description: Wrapper around lua functions
+//	Filename: LuaVM.h
+//	Description: Lua Virtual Machine
 *****************************************************************************/
 #pragma once
 #include "Engine/Common/Common.h"
@@ -10,19 +10,11 @@
 namespace neko
 {
 
-class LuaMgr
+class LuaVM
 {
 public:
-	LuaMgr()
-	{
-		m_L = luaL_newstate();
-		luaL_openlibs(m_L);
-	}
-
-	~LuaMgr()
-	{
-		lua_close(m_L);
-	}
+	LuaVM(){}
+	~LuaVM(){}
 
 	lua_State* L() const { return m_L; }
 
@@ -31,8 +23,11 @@ public:
 	void ExecuteFile(const char* szFilename) const;
 	void ExecuteString(const char* szString) const;
 
+	void Init();
+	void Shut();
+
 private:
-	PRIVATE_COPY(LuaMgr)
+	PRIVATE_COPY(LuaVM)
 	
 	lua_State* m_L;
 

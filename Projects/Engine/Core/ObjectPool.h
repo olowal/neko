@@ -12,7 +12,7 @@
 namespace neko
 {
 
-template <class ElemType, bool bNeedConstructor = true>
+template <class ElemType>
 class ObjectPool
 {
 public:
@@ -49,7 +49,7 @@ private:
 		return (Entry*)pHeader;
 	}
 
-	DArray<Entry, false> m_pool;
+	DArray<Entry, true> m_pool;
 
 	Entry* m_pFirst;
 	Entry* m_pFirstFree;
@@ -76,22 +76,22 @@ public:
 	Iterator Begin() const { return Iterator(m_pFirst); }
 };
 
-template <class ElemType, bool bNeedConstructor>
-ObjectPool<ElemType, bNeedConstructor>::ObjectPool(uint32 uSize, bool bCanResize)
+template <class ElemType>
+ObjectPool<ElemType>::ObjectPool(uint32 uSize, bool bCanResize)
 {
 	m_pool.SetSize(uSize);
 	m_bCanResize = bCanResize;
 	Clear();
 }
 
-template <class ElemType, bool bNeedConstructor>
-ObjectPool<ElemType, bNeedConstructor>::~ObjectPool()
+template <class ElemType>
+ObjectPool<ElemType>::~ObjectPool()
 {
 	m_pool.Clear();
 }
 
-template <class ElemType, bool bNeedConstructor>
-ElemType* ObjectPool<ElemType, bNeedConstructor>::Alloc()
+template <class ElemType>
+ElemType* ObjectPool<ElemType>::Alloc()
 {
 	if(m_pFirstFree == NULL)
 	{
@@ -120,12 +120,12 @@ ElemType* ObjectPool<ElemType, bNeedConstructor>::Alloc()
 	}
 
 	m_uSize++;
-	new(&pAlloc->m_data) ElemType();
+	//new(&pAlloc->m_data) ElemType();
 	return &pAlloc->m_data;
 }
 
-template <class ElemType, bool bNeedConstructor>
-void ObjectPool<ElemType, bNeedConstructor>::Free(ElemType* pData)
+template <class ElemType>
+void ObjectPool<ElemType>::Free(ElemType* pData)
 {
 	Entry* pEntry = GetHeaderFromData(pData);
 	pEntry->m_data.~ElemType();
@@ -153,19 +153,9 @@ void ObjectPool<ElemType, bNeedConstructor>::Free(ElemType* pData)
 	m_pFirstFree = pEntry;
 }
 
-template <class ElemType, bool bNeedConstructor>
-void ObjectPool<ElemType, bNeedConstructor>::Clear()
+template <class ElemType>
+void ObjectPool<ElemType>::Clear()
 {
-	if(bNeedConstructor)
-	{
-		Entry* pEntry = m_pFirst;
-		while(pEntry != NULL)
-		{
-			pEntry->m_data.~ElemType();
-			pEntry = pEntry->m_pNext;
-		}
-	}
-
 	m_uSize = 0;
 	m_pFirst = NULL;
 	m_pFirstFree = &m_pool[0];

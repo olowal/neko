@@ -150,7 +150,7 @@
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="IMG_tga.h" />
     <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="LuaMgr.h" />
+    <ClInclude Include="LuaVM.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="ResourceSerializer.h" />
@@ -165,7 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IMG_tga.cpp" />
-    <ClCompile Include="LuaMgr.cpp" />
+    <ClCompile Include="LuaVM.cpp" />
     <ClCompile Include="ResourceSerializer.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StringCRC.cpp" />

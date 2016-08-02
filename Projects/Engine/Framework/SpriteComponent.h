@@ -5,7 +5,6 @@
 #pragma once
 #include "Engine/Common/Common.h"
 #include "Engine/Framework/Component.h"
-#include "Engine/Graphics/GFXDevice.h"
 
 namespace neko
 {
@@ -13,7 +12,6 @@ namespace neko
 struct SpriteComponent
 {
 	SDL_Texture* pTexture;
-	const GFXDevice* pDevice;
 	SDL_Rect size;
 };
 
@@ -30,11 +28,11 @@ void SetDimension(SpriteComponent* pC, int iX, int iY, int iW, int iH)
 
 void LoadTexture(SpriteComponent* pC, const char* szFilename)
 {
-	ASSERT(pC->pDevice != NULL);
-	pC->pTexture = pC->pDevice->LoadTextureFromBinary(szFilename);
+	//ASSERT(pC->pDevice != NULL);
+	//pC->pTexture = pC->pDevice->LoadTextureFromBinary(szFilename);
 }
 
-bool AllocSpriteComponent(GameObject* pGameObject, luabridge::LuaRef data, const GFXDevice* pDevice)
+bool AllocSpriteComponent(GameObject* pGameObject, luabridge::LuaRef data)
 {	
 	if(pGameObject)
 	{
@@ -45,7 +43,7 @@ bool AllocSpriteComponent(GameObject* pGameObject, luabridge::LuaRef data, const
 			{
 				const char* sFilename = data["filename"].cast<const char*>();
 				
-				pC->pTexture = pDevice->LoadTextureFromBinary(sFilename);
+				//pC->pTexture = pDevice->LoadTextureFromBinary(sFilename);
 
 				int iX = 0;
 				int iY = 0;
@@ -74,7 +72,7 @@ void Component<SpriteComponent>::RegisterLua(lua_State* pL)
 	getGlobalNamespace(pL)
 		.beginNamespace("Components")
 		.beginNamespace("Sprite")
-		.addFunction("Alloc", AllocSpriteComponent)
+		//.addFunction("Alloc", AllocSpriteComponent)
 		.endNamespace()
 		.endNamespace();
 }
@@ -83,7 +81,6 @@ template <>
 void Component<SpriteComponent>::OnActivate(SpriteComponent* pC)
 {
 	pC->pTexture = NULL;
-	pC->pDevice = GFXDevice::GetDevice();
 	pC->size.x = 0;
 	pC->size.y = 0;
 	pC->size.w = 0;

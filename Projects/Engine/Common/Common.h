@@ -72,4 +72,6 @@ inline void SafeRelease(Interface *&p)
 	}
 }
 
+const static uint32 PATH_MAX = 256;
+
 }	//	namespace neko

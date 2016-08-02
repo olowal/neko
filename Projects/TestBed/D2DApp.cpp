@@ -21,6 +21,7 @@ D2DApp::~D2DApp(){}
 bool D2DApp::Init()
 {
 	_Init<TankComponentManager>();
+	m_pWnd = neko::Window::Create("TankTest", 100, 100, 800, 600);
 	return Inherited::Init();
 }
 
