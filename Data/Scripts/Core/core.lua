@@ -3,6 +3,7 @@
 
 package.path = ";" .. Application.GetPath() .. "/?.lua;" .. package.path
 
-require "Scripts/System/class"
---require "Scripts/System/MessageSystem"
---require "Scripts/Math/Vec2"
+require "Scripts/Core/System/class"
+require "Scripts/Core/System/MessageSystem"
+require "Scripts/Core/System/Component"
+require "Scripts/Core/Math/Vec2"
