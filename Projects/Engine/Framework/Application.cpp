@@ -53,10 +53,22 @@ bool Application::Init()
 	{
 		_chdir("../../Data/");
 		char* sPath = SDL_GetBasePath();
-		size_t len = strcspn(sPath, "/_bin");
-		str::Copy(s_path,"../../Data/");
+		bool bOk = false;
+		
+		char sB[neko::PATH_MAX];
+		if(neko::str::FirstOccurance(sB, sPath, "_bin"))
+		{
+			neko::str::Copy(s_path, sB);
+			neko::str::Concatenate(s_path, "Data/");
+			bOk = true;
+		}
+
 		printf("Path: %s\n", sPath);
 		SDL_free(sPath);
+		if(!bOk)
+		{
+			return false;
+		}
 	}
 #endif
 
