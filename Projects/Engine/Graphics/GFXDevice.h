@@ -18,6 +18,7 @@ namespace neko
 class GFXDevice
 {
 public:
+	GFXDevice();
 	~GFXDevice();
 
 	bool Init(SDL_Window* pWnd);
@@ -40,13 +41,9 @@ public:
 
 	SDL_Texture* LoadTextureFromBinary(const char* pzFilename) const;
 
-	static GFXDevice* CreateDevice(SDL_Window* pWnd);
 	static void Register(lua_State* pL);
-	static const GFXDevice* GetDevice();
 
 private:
-	GFXDevice(SDL_Renderer* pRnd);
-
 	Mat3x2 m_mModel;
 	SDL_Color m_color;
 	SDL_Renderer* m_pRndr;

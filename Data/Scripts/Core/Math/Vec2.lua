@@ -1,5 +1,5 @@
 --	Vec2.lua
--- LUA implementation of a vector2 class/table
+--	LUA implementation of a vector2 class/table
 
 Vec2 = {}
 Vec2.Alloc = function(x,y)

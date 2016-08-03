@@ -13,7 +13,7 @@ namespace neko
 
 const char* GameObject::ScriptHandle = "__gameObject";
 const uint32 GameObject::NumGameObjects = 128;
-ObjectPool<GameObject, false> GameObject::ms_pool(GameObject::NumGameObjects);
+ObjectPool<GameObject> GameObject::ms_pool(GameObject::NumGameObjects);
 LinkedList<GameObject> GameObject::ms_getComponents;
 LinkedList<GameObject> GameObject::ms_componentsToCheck;
 GameObject* GameObject::ms_pRoot = NULL;
@@ -29,6 +29,7 @@ void GameObject::SetChanged()
 	{
 		ms_componentsToCheck.AddToLast(this);
 		m_bChanged = true;
+
 		for(LinkedList<GameObject>::Iterator it = m_children.Begin(); !it.IsEnd(); ++it)
 		{
 			(*it)->SetChanged();

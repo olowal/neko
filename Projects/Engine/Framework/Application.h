@@ -6,13 +6,14 @@
 #include "Engine/Common/Common.h"
 #include "Engine/Framework/ComponentManager.h"
 #include "Engine/Framework/Input.h"
-#include "Engine/Core/LuaMgr.h"
+#include "Engine/Core/LuaVM.h"
+#include "Engine/Graphics/GFXDevice.h"
 
 #include "ThirdParty/luabridge/LuaBridge.h"
 
 namespace neko
 {
-class GFXDevice;
+
 class Application
 {
 public:
@@ -31,6 +32,8 @@ public:
 	bool CreateGameObject(const char* szHandle);
 	void DestroyGameObject(luabridge::LuaRef obj);
 
+	static const char* GetApplicationPath() { return s_path; }
+
 protected:
 	template <class ComponentManagerType>
 	void _Init() { m_pComponentManager = new ComponentManagerType(); }
@@ -41,14 +44,18 @@ protected:
 
 	virtual void Register(lua_State* pL);
 
-	GFXDevice* m_pDevice;
+	GFXDevice m_device;
+	SDL_Window* m_pWnd;
 
 	bool m_bShouldQuit;
 private:
+	static char s_path[neko::PATH_MAX];
+
 	bool MessagePump();
-	ComponentManager* m_pComponentManager;
 	InputManager m_inputManager;
-	LuaMgr m_lua;
+	LuaVM m_lua;
+	ComponentManager* m_pComponentManager;
+	
 	uint32 m_uFrameIndex;
 	float m_fFps;
 	int m_iMs;

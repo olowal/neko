@@ -33,7 +33,7 @@ class LinkedList
 	};
 public:
 	LinkedList(uint32 uSize = DEFAULT_SIZE):
-		m_nodes(uSize, true),
+		m_nodes(uSize, false),
 		m_pFirst(NULL),
 		m_pLast(NULL){}
 	~LinkedList(){}

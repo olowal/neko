@@ -17,7 +17,7 @@ bool SpriteRenderSystem::GetComponents(GameObject* pObj, Components* pComp)
 
 void SpriteRenderSystem::Run(Components* pComp, const float fDelta)
 {
-	ASSERT(pComp->pSprite->pDevice != NULL);
+	//ASSERT(pComp->pSprite->pDevice != NULL);
 	ASSERT(pComp->pSprite->pTexture != NULL);
 	const GFXDevice* pDevice = pComp->pGFX->pDevice;
 	const Vec2& vPos = pComp->pTrans->vPos;

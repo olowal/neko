@@ -1,7 +1,6 @@
 //	Application.cpp
 
 #include "Application.h"
-#include "Engine/Graphics/GFXDevice.h"
 #include "Engine/Math/Utils.h"
 #include "Engine/Framework/ComponentManager.h"
 #include "Engine/Framework/GameObject.h"
@@ -14,6 +13,8 @@ using namespace luabridge;
 
 namespace neko
 {
+
+char Application::s_path[neko::PATH_MAX];
 
 Application::Application()
 {
@@ -44,11 +45,19 @@ bool Application::Init()
 			}
 			sPath[iP] = '\0';
 			_chdir(sPath);
+			str::Copy(s_path,sPath);
 			SDL_free(sPath);
 		}
 	}
 #else
-	_chdir("../../Data/");
+	{
+		_chdir("../../Data/");
+		char* sPath = SDL_GetBasePath();
+		size_t len = strcspn(sPath, "/_bin");
+		str::Copy(s_path,"../../Data/");
+		printf("Path: %s\n", sPath);
+		SDL_free(sPath);
+	}
 #endif
 
 	Time::Init();
@@ -58,9 +67,11 @@ bool Application::Init()
 		return false;
 	}
 
+	m_lua.Init();
 	lua_State* pL = m_lua.L();
 
 	this->Register(pL);
+
 	m_inputManager.Register(pL);
 	Window::Register(pL);
 	GameObject::Register(pL);
@@ -70,8 +81,19 @@ bool Application::Init()
 	m_pComponentManager->Init(pL);
 	GameObject* pRoot = GameObject::Init();
 	ASSERT(pRoot != NULL);
+	
+	if(!m_device.Init(m_pWnd))
+	{
+		return false;
+	}
 
-	m_lua.LoadFiles("Scripts/");
+	GFXDeviceComponent* pGFX = Component<GFXDeviceComponent>::Create(pRoot);
+	ASSERT(pGFX != NULL);
+	pGFX->pDevice = &m_device;
+
+	m_lua.ExecuteFile("Scripts/Core/core.lua");
+
+	/*m_lua.LoadFiles("Scripts/");
 
 	m_lua.ExecuteFile("default.lua");
 	LuaRef defaultGame = getGlobal(pL, "defaultGame");
@@ -122,7 +144,7 @@ bool Application::Init()
 		{
 			start();
 		}
-	}
+	}*/
 
 	return true;
 }
@@ -156,16 +178,10 @@ void Application::Run()
 				const uint32 uCalcStart = static_cast<sint32>(Time::GetTicks());
 				++m_uFrameIndex;
 
-				{
-					lua_State* pL = m_lua.L();
-					luabridge::LuaRef time = getGlobal(pL, "Time");
-					time["deltaTime"] = fDt;
-				}
-
-				m_pDevice->BeginDraw();
+				m_device.BeginDraw();
 				DoFrame(fDt);
-				m_pDevice->EndDraw();
-				const sint32 uCalcEnd = static_cast<sint32>(SDL_GetTicks());
+				m_device.EndDraw();
+				const sint32 uCalcEnd = static_cast<sint32>(Time::GetTicks());
 				fAvgTime = fAvgTime * 0.99f + (float)(GetTickDiff(uCalcStart, uCalcEnd)) * 0.01f;
 			}
 		}
@@ -188,6 +204,7 @@ bool Application::MessagePump()
 
 void Application::Shut()
 {
+	m_lua.Shut();
 	Time::Shut();
 	OnShut();
 }
@@ -234,6 +251,7 @@ void Application::Register(lua_State* pL)
 		.addFunction("CreateGameObject", &Application::CreateGameObject)
 		.addFunction("DestroyGameObject",&Application::DestroyGameObject)
 		.addFunction("GetFrameCount", &Application::GetFrameCount)
+		.addStaticFunction("GetPath", &Application::GetApplicationPath)
 		.endClass();
 }
 
