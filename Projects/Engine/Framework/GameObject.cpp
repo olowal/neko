@@ -49,9 +49,35 @@ GameObject* GameObject::Alloc(bool bAddToRoot)
 			pObj->m_pParent = ms_pRoot;
 			ms_pRoot->m_children.AddToLast(pObj);
 		}
-
 	}
 	return NULL;
+}
+
+uint32 GameObject::lua_AllocGameObject()
+{
+	GameObject* pGameObject = GameObject::Alloc();
+	
+	if(pGameObject)
+	{
+		return pGameObject->GetIndex();
+	}
+
+	return 0;
+}
+
+uint32 GameObject::lua_AllocChildGameObject(uint32 uParentIdx)
+{
+	GameObject* pParent = &ms_pool.GetByIndex(uParentIdx);
+	if(pParent)
+	{
+		GameObject* pGameObject = GameObject::Alloc(pParent);
+		if(pGameObject)
+		{
+			return pGameObject->GetIndex();
+		}
+	}
+	
+	return 0;
 }
 
 GameObject* GameObject::Alloc(GameObject* pParent)

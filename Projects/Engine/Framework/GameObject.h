@@ -21,6 +21,8 @@ public:
 	static const uint32 NumGameObjects;
 
 	static GameObject* Alloc(bool bAddToRoot = true);
+	static uint32 lua_AllocGameObject();
+	static uint32 lua_AllocChildGameObject(uint32 uParentIdx);
 	static GameObject* Alloc(GameObject* pParent);
 	static void Free(GameObject* pObj);
 
