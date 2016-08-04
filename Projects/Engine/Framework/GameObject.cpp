@@ -137,8 +137,10 @@ GameObject* GameObject::Init()
 void GameObject::Register(lua_State* pL)
 {
 	getGlobalNamespace(pL)
-		.beginClass<GameObject>("GameObject")
-		.endClass();
+		.beginNamespace("_GameObject")
+		.addFunction("Create", &GameObject::lua_AllocGameObject)
+		.addFunction("CreateChild", &GameObject::lua_AllocChildGameObject)
+		.endNamespace();
 }
 
 bool GameObject::Create(lua_State* pL, const char* szHandle)
