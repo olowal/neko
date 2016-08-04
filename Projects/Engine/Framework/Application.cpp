@@ -79,6 +79,9 @@ bool Application::Init()
 		return false;
 	}
 
+	GameObject* pRoot = GameObject::Init();
+	ASSERT(pRoot != NULL);
+
 	m_lua.Init();
 	lua_State* pL = m_lua.L();
 
@@ -91,8 +94,6 @@ bool Application::Init()
 	neko::math::Register(pL);
 
 	m_pComponentManager->Init(pL);
-	GameObject* pRoot = GameObject::Init();
-	ASSERT(pRoot != NULL);
 	
 	if(!m_device.Init(m_pWnd))
 	{
