@@ -3,7 +3,6 @@
 #include "Engine/Graphics/IMGHeader.h"
 #include "Engine/Core/String.h"
 #include "Engine/Core/StringCRC.h"
-#include "Engine/Core/StringUtils.h"
 #include "Engine/Core/FileSystem.h"
 #include "Engine/Graphics/Color.h"
 #include "IMG_tga.h"
@@ -45,7 +44,7 @@ void ResourceSerializer::SerializeToBinary(const char* szReadPath, const char* s
 			imgHeader.hasPalette = pSurface->format->palette != NULL ? true : false;
 
 			U8String sName;
-			GetFilenameAsIs((*it), sName);
+			str::GetFilenameAsIs((*it), sName);
 			StringCRC hash(sName.CStr());
 			int iSize = (imgHeader.width * imgHeader.height) * 4;
 			uint32 uHashName = hash.Get();

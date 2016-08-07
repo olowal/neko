@@ -31,7 +31,6 @@
 #include "SDL2/SDL_endian.h"
 
 #include "Engine/Core/StringCRC.h"
-#include "Engine/Core/StringUtils.h"
 #include "IMG_tga.h"
 
 #define LOAD_TGA

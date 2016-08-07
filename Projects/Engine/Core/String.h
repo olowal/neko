@@ -73,4 +73,57 @@ typedef IString<char> U8String;
 typedef IString<wchar_t> WString;
 typedef U8String String;
 
+namespace str
+{
+
+//	Read through a string and remove everything in the path and file ending
+inline void GetFilenameAsIs(const char* sFilepath, U8String& sFilename)
+{
+	char sTmp[MAX_PATH];
+	strcpy_s(sTmp,sFilepath);
+	int iLen = (int)strlen(sTmp);
+	while(iLen > 0 && sTmp[iLen - 1] != '.')
+	{
+		iLen--;
+	}
+
+	if(iLen > 0)
+	{
+		sTmp[iLen - 1] = '\0';
+	}
+
+	while(iLen > 0 && sTmp[iLen - 1] != '/' && sTmp[iLen - 1] != '\\')
+	{
+		iLen--;
+	}
+
+	sFilename.Set(sTmp + iLen);
+}
+
+//	Read through a string and removes everything in the path and file ending (for wide char)
+inline void GetFilenameAsIsW(const wchar_t* sFilepath, WString& sFilename)
+{
+	wchar_t sTmp[MAX_PATH];
+	wcscpy_s(sTmp,sFilepath);
+	int iLen = (int)wcslen(sTmp);
+	while(iLen > 0 && sTmp[iLen - 1] != '.')
+	{
+		iLen--;
+	}
+
+	if(iLen > 0)
+	{
+		sTmp[iLen - 1] = '\0';
+	}
+
+	while(iLen > 0 && sTmp[iLen - 1] != '/' && sTmp[iLen - 1] != '\\')
+	{
+		iLen--;
+	}
+
+	sFilename.Set(sTmp + iLen);
+}
+
+}	//	namespace str
+
 }	//	namespace neko

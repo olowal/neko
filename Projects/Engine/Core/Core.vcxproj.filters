@@ -39,9 +39,6 @@
     <ClInclude Include="StringCRC.h">
       <Filter>String</Filter>
     </ClInclude>
-    <ClInclude Include="StringUtils.h">
-      <Filter>String</Filter>
-    </ClInclude>
     <ClInclude Include="String.h">
       <Filter>String</Filter>
     </ClInclude>

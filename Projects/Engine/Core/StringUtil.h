@@ -60,6 +60,7 @@ inline uint32 Concatenate(char* szDst, const char* szSrc, uint32 uSrcLen)
 	return uLength;
 }
 
+// Get a new string from an existing, up til given word has been found
 inline bool FirstOccurance(char* szDst, const char* szSrc, const char* szCmp)
 {
 	uint32 uCmpLen = neko::str::Length(szCmp);
