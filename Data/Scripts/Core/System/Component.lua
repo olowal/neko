@@ -31,5 +31,10 @@ Component.Create = function( component, gameObject )
 	end
 	local c = component.Alloc()
 	gameObject._components[component] = c
+	if not gameObject._modified then
+		gameObject._modified = true
+		System._AddModified( gameObject )
+	end
+
 	return true
 end
