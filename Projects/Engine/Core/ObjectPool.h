@@ -128,7 +128,7 @@ template <class ElemType>
 void ObjectPool<ElemType>::Free(ElemType* pData)
 {
 	Entry* pEntry = GetHeaderFromData(pData);
-	pEntry->m_data.~ElemType();
+	//pEntry->m_data.~ElemType();
 	Entry* pPrev = pEntry->m_pPrev;
 	Entry* pNext = pEntry->m_pNext;
 	m_uSize--;
