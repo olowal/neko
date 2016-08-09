@@ -1,6 +1,7 @@
 --	core.lua
 --	Define in what order sub-systems will compile
 
+--	This adds the application path to the directory "require" is checking for
 package.path = ";" .. Application.GetPath() .. "/?.lua;" .. package.path
 
 require "Scripts/Core/System/class"
